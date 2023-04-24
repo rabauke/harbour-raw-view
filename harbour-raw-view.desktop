@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-raw-view
+Exec=harbour-raw-view
+Name=RawView
+Name[de]=RawView
+
+[X-Sailjail]
+Permissions=UserDirs
+OrganizationName=rabauke
+ApplicationName=harbour-raw-view
