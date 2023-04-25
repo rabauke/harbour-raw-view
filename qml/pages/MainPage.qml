@@ -12,6 +12,19 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
+        contentHeight: page.height
+
+        Component {
+            id: folderPickerDialog
+
+            FolderPickerPage {
+                showNavigationIndicator: true
+                showSystemFiles: true
+                dialogTitle: qsTr('Show images in')
+                onSelectedPathChanged: application.imageFolder = selectedPath
+            }
+        }
+
         PullDownMenu {
             MenuItem {
                 text: qsTr('Choose image folder')
@@ -19,11 +32,11 @@ Page {
             }
         }
 
-        contentHeight: page.height
-
-        SlideshowView {
+        PagedView {
             id: view
+
             anchors.fill: parent
+            wrapMode: PagedView.NoWrap
 
             model: application.imageList
 
@@ -43,17 +56,6 @@ Page {
                     }
                 }
             }
-        }
-    }
-
-    Component {
-        id: folderPickerDialog
-
-        FolderPickerPage {
-            showNavigationIndicator: true
-            showSystemFiles: true
-            dialogTitle: qsTr('Show images in')
-            onSelectedPathChanged: application.imageFolder = selectedPath
         }
     }
 }
