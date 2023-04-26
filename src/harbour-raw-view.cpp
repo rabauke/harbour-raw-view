@@ -1,7 +1,7 @@
 #ifdef QT_QML_DEBUG
-#include <QtQuick>
+  #include <QtQuick>
 #endif
-
+#include <QQuickView>
 #include <sailfishapp.h>
 #include "AppModel.hpp"
 #include "ImagePropertiesModel.hpp"
