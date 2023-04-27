@@ -18,5 +18,25 @@
         <source>Show images in</source>
         <translation>Show images in</translation>
     </message>
+    <message>
+        <source>%1&quot;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>1/%1&quot;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>unknown camera</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Hide image information</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Show image information</source>
+        <translation></translation>
+    </message>
 </context>
 </TS>

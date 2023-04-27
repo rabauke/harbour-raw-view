@@ -7,7 +7,33 @@ import RawViewQuick 1.0
 Page {
     id: page
 
+    function formatSpeed(speed) {
+        if (speed >= 1)
+            return qsTr('%1"').arg(speed);
+        return qsTr('1/%1"').arg(Math.round(1 / speed));
+    }
+
+    function labelText(fileName, cameraMaker, cameraModel, lensMaker, lensModel, aperture, focalLength, shutterSpeed, iso) {
+        var result = fileName + ':';
+        if (cameraMaker !== '')
+            result += ' ' + cameraMaker;
+        if (cameraModel !== '')
+            result += ' ' + cameraModel;
+        else
+            result += ' ' + qsTr('unknown camera');
+        if (lensModel !== '' && lensMaker !== '')
+            result += ', ' + lensMaker + ' ' + lensModel;
+        else if (lensModel !== '')
+            result += ', ' + lensModel;
+        if (aperture !== 0)
+            result += ', ' + 'f/' + aperture.toFixed(1);
+        result += ', ' + focalLength.toFixed(1) + 'mm, ' + formatSpeed(shutterSpeed) + ', ' + 'ISO ' + iso;
+        return result;
+    }
+
     allowedOrientations: Orientation.All
+
+    property bool show_image_information: false
 
     SilicaFlickable {
         anchors.fill: parent
@@ -30,6 +56,12 @@ Page {
                 text: qsTr('Choose image folder')
                 onClicked: pageStack.animatorPush(folderPickerDialog)
             }
+            MenuItem {
+                text: show_image_information ? qsTr('Hide image information') : qsTr('Show image information')
+                onClicked: {show_image_information = !show_image_information
+                    console.log(show_image_information)
+                }
+            }
         }
 
         PagedView {
@@ -51,6 +83,13 @@ Page {
                             ImageItem {
                                 anchors.fill: parent
                                 image: preview
+                            }
+                            Text {
+                                anchors.bottom: parent.bottom
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: labelText(fileName, cameraMaker, cameraModel, lensMaker, lensModel, aperture, focalLength, shutterSpeed, iso)
+                                color: Theme.highlightColor
+                                visible: show_image_information
                             }
                         }
                     }
