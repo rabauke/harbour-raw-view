@@ -1,5 +1,4 @@
 import QtQuick 2.6
-import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import RawViewQuick 1.0
@@ -9,26 +8,27 @@ Page {
 
     function formatSpeed(speed) {
         if (speed >= 1)
-            return qsTr('%1"').arg(speed);
-        return qsTr('1/%1"').arg(Math.round(1 / speed));
+            return qsTr('%1"').arg(speed)
+        return qsTr('1/%1"').arg(Math.round(1 / speed))
     }
 
     function labelText(fileName, cameraMaker, cameraModel, lensMaker, lensModel, aperture, focalLength, shutterSpeed, iso) {
-        var result = fileName + ':';
+        var result = fileName + ':'
         if (cameraMaker !== '')
-            result += ' ' + cameraMaker;
+            result += ' ' + cameraMaker
         if (cameraModel !== '')
-            result += ' ' + cameraModel;
+            result += ' ' + cameraModel
         else
-            result += ' ' + qsTr('unknown camera');
+            result += ' ' + qsTr('unknown camera')
         if (lensModel !== '' && lensMaker !== '')
-            result += ', ' + lensMaker + ' ' + lensModel;
+            result += ', ' + lensMaker + ' ' + lensModel
         else if (lensModel !== '')
-            result += ', ' + lensModel;
+            result += ', ' + lensModel
         if (aperture !== 0)
-            result += ', ' + 'f/' + aperture.toFixed(1);
-        result += ', ' + focalLength.toFixed(1) + 'mm, ' + formatSpeed(shutterSpeed) + ', ' + 'ISO ' + iso;
-        return result;
+            result += ', ' + 'f/' + aperture.toFixed(1)
+        result += ', ' + focalLength.toFixed(1) + 'mm, ' + formatSpeed(
+                    shutterSpeed) + ', ' + 'ISO ' + iso
+        return result
     }
 
     allowedOrientations: Orientation.All
@@ -57,15 +57,20 @@ Page {
                 onClicked: pageStack.animatorPush(folderPickerDialog)
             }
             MenuItem {
-                text: show_image_information ? qsTr('Hide image information') : qsTr('Show image information')
-                onClicked: {show_image_information = !show_image_information
+                text: show_image_information ? qsTr('Hide image information') : qsTr(
+                                                   'Show image information')
+                onClicked: {
+                    show_image_information = !show_image_information
                     console.log(show_image_information)
                 }
             }
         }
-
         PagedView {
             id: view
+
+            property double p_scale: 1
+            property double p_scale_origin_x: 0
+            property double p_scale_origin_y: 0
 
             anchors.fill: parent
             wrapMode: PagedView.NoWrap
@@ -83,16 +88,40 @@ Page {
                             ImageItem {
                                 anchors.fill: parent
                                 image: preview
+                                transform: Scale {
+                                    xScale: view.p_scale
+                                    yScale: view.p_scale
+                                    origin.x: view.p_scale_origin_x
+                                    origin.y: view.p_scale_origin_y
+                                }
                             }
                             Text {
                                 anchors.bottom: parent.bottom
                                 anchors.horizontalCenter: parent.horizontalCenter
-                                text: labelText(fileName, cameraMaker, cameraModel, lensMaker, lensModel, aperture, focalLength, shutterSpeed, iso)
+                                text: labelText(fileName, cameraMaker,
+                                                cameraModel, lensMaker,
+                                                lensModel, aperture,
+                                                focalLength, shutterSpeed, iso)
                                 color: Theme.highlightColor
                                 visible: show_image_information
                             }
                         }
                     }
+                }
+            }
+            PinchArea {
+                id: pinchArea
+                anchors.fill: parent
+
+                onPinchUpdated: {
+                    view.p_scale = Math.max(Math.min(pinch.scale, 4), 1)
+                    view.p_scale_origin_x = pinch.center.x
+                    view.p_scale_origin_y = pinch.center.y
+                }
+                onPinchFinished: {
+                    view.p_scale = 1
+                    view.p_scale_origin_x = 0
+                    view.p_scale_origin_y = 0
                 }
             }
         }
