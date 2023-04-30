@@ -6,7 +6,6 @@
 #include "AppModel.hpp"
 #include "ImagePropertiesModel.hpp"
 #include "ImageItem.hpp"
-#include "FolderListModel.hpp"
 
 
 int main(int argc, char *argv[]) {
