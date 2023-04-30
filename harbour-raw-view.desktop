@@ -7,6 +7,6 @@ Name=Raw View
 Name[de]=Raw View
 
 [X-Sailjail]
-Permissions=UserDirs
+Permissions=UserDirs;RemovableMedia
 OrganizationName=rabauke
 ApplicationName=harbour-raw-view
