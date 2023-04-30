@@ -9,9 +9,9 @@
    viewBox="0 0 86 86"
    sodipodi:docname="harbour-raw-view.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   inkscape:export-filename="/home/bauke/Programmieren/Jolla/harbour-raw-view/icons/172x172/harbour-raw-view.png"
-   inkscape:export-xdpi="179.17"
-   inkscape:export-ydpi="179.17"
+   inkscape:export-filename="/home/bauke/Programmieren/Jolla/harbour-raw-view/icons/108x108/harbour-raw-view.png"
+   inkscape:export-xdpi="133.95"
+   inkscape:export-ydpi="133.95"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -22,19 +22,19 @@
    xmlns:dc="http://purl.org/dc/elements/1.1/">
   <sodipodi:namedview
      id="namedview22"
-     pagecolor="#ffffff"
+     pagecolor="#000000"
      bordercolor="#666666"
      borderopacity="1.0"
      inkscape:pageshadow="2"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0"
      inkscape:pagecheckerboard="0"
      showgrid="true"
      inkscape:zoom="5.0618308"
-     inkscape:cx="41.882079"
-     inkscape:cy="26.966527"
+     inkscape:cx="14.224102"
+     inkscape:cy="45.536884"
      inkscape:window-width="1920"
-     inkscape:window-height="1146"
-     inkscape:window-x="1920"
+     inkscape:window-height="1026"
+     inkscape:window-x="0"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2">
@@ -80,6 +80,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient1317">
+      <stop
+         id="stop1313"
+         offset="0"
+         style="stop-color:#c8c8c8;stop-opacity:1" />
+      <stop
+         id="stop1315"
+         offset="1"
+         style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient
        inkscape:collect="always"
        id="linearGradient4294">
       <stop
@@ -87,7 +98,7 @@
          offset="0"
          id="stop4290" />
       <stop
-         style="stop-color:#2020e0;stop-opacity:0;"
+         style="stop-color:#151595;stop-opacity:0"
          offset="1"
          id="stop4292" />
     </linearGradient>
@@ -99,7 +110,7 @@
          offset="0"
          id="stop4282" />
       <stop
-         style="stop-color:#00c800;stop-opacity:0;"
+         style="stop-color:#00a300;stop-opacity:0"
          offset="1"
          id="stop4284" />
     </linearGradient>
@@ -111,7 +122,7 @@
          offset="0"
          id="stop3946" />
       <stop
-         style="stop-color:#00c800;stop-opacity:0;"
+         style="stop-color:#00a200;stop-opacity:0"
          offset="1"
          id="stop3948" />
     </linearGradient>
@@ -123,7 +134,7 @@
          offset="0"
          id="stop3936" />
       <stop
-         style="stop-color:#c80000;stop-opacity:0;"
+         style="stop-color:#de2100;stop-opacity:0"
          offset="1"
          id="stop3938" />
     </linearGradient>
@@ -162,10 +173,10 @@
     </linearGradient>
     <linearGradient
        gradientUnits="userSpaceOnUse"
-       y2="-14.000001"
-       x2="88.500008"
-       y1="64.000008"
-       x1="28.500002"
+       y2="-0.5000003"
+       x2="90.000008"
+       y1="65.500008"
+       x1="25.500002"
        id="linearGradient6184"
        xlink:href="#linearGradient6178" />
     <radialGradient
@@ -187,7 +198,7 @@
        fy="31.5"
        r="12.828125"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(2.3000693,-0.00594559,0.00592312,2.2913634,-35.938484,-40.514442)" />
+       gradientTransform="matrix(2.2988417,0.07537203,-0.07795386,2.3775884,-33.2626,-45.466765)" />
     <radialGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3950"
@@ -221,6 +232,15 @@
        r="12.828125"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(2.2215796,0.08078536,-0.07795431,2.143727,-65.446639,-74.984367)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1317"
+       id="linearGradient1319"
+       gradientUnits="userSpaceOnUse"
+       x1="25.500002"
+       y1="65.500008"
+       x2="90.000008"
+       y2="-0.5000003" />
   </defs>
   <metadata
      id="metadata7">
@@ -238,11 +258,11 @@
      style="display:inline"
      transform="translate(0,-4)">
     <path
-       style="opacity:1;fill:url(#linearGradient6184);fill-opacity:1;stroke:url(#radialGradient4685);stroke-width:1.00031254;stroke-miterlimit:4;stroke-dasharray:none"
+       style="opacity:1;fill:url(#linearGradient1319);fill-opacity:1.0;stroke:url(#radialGradient4685);stroke-width:1.00031254;stroke-miterlimit:4;stroke-dasharray:none"
        id="path11"
        d="M 84.277,4.3 H 43 C 19.417,4.3 0.3,23.418 0.3,47 v 41.277 c 0,0.786 0.637,1.423 1.423,1.423 H 43 C 66.583,89.7 85.7,70.582 85.7,47 V 5.723 C 85.7,4.937 85.063,4.3 84.277,4.3 Z" />
     <rect
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient3942);fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.67343855;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient3942);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.67343855;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="rect1920"
        width="25"
        height="25"
@@ -251,7 +271,7 @@
        rx="7.1054274e-15"
        ry="0" />
     <rect
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient3954);fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.67234504;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient3954);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.67234504;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="rect1920-3"
        width="25"
        height="25"
@@ -260,16 +280,19 @@
        rx="0"
        ry="0" />
     <rect
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient4288);fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.67259276;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient4288);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.67259276;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="rect1920-6"
        width="25"
        height="25"
        x="15"
        y="49"
        rx="7.1054274e-15"
-       ry="5" />
+       ry="5"
+       inkscape:export-filename="/home/bauke/Programmieren/Jolla/harbour-raw-view/icons/86x86/harbour-raw-view.png"
+       inkscape:export-xdpi="309.60001"
+       inkscape:export-ydpi="309.60001" />
     <rect
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient4296);fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.66526628;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient4296);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.65625;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.66526628;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        id="rect1920-7"
        width="25"
        height="25"
