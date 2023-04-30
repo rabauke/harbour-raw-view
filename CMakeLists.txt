@@ -1,5 +1,5 @@
 project(harbour-raw-view CXX)
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.17)
 
 find_package(Qt5 COMPONENTS Core Qml Quick LinguistTools REQUIRED)
 
@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/external)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/translations)
 
 add_custom_target(extract_libraw
     COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/LibRaw-0.21.1.tar.gz
@@ -36,6 +37,18 @@ set_target_properties(extract_libraw PROPERTIES ADDITIONAL_CLEAN_FILES
 
 set(CMAKE_SKIP_RPATH OFF)
 set(CMAKE_INSTALL_RPATH /usr/share/harbour-raw-view/lib)
+
+set(QML_FILES
+    qml/harbour-raw-view.qml
+    qml/pages/MainPage.qml
+    qml/cover/CoverPage.qml
+    )
+
+set(TS_FILES
+    translations/harbour-raw-view.ts
+    translations/harbour-raw-view-de.ts)
+list(TRANSFORM TS_FILES REPLACE "ts" "qm" OUTPUT_VARIABLE QM_FILES)
+list(TRANSFORM QM_FILES PREPEND ${CMAKE_BINARY_DIR}/)
 
 add_executable(harbour-raw-view
     src/harbour-raw-view.cpp
@@ -68,9 +81,13 @@ target_link_libraries(harbour-raw-view
 target_include_directories(harbour-raw-view
     PRIVATE ${CMAKE_BINARY_DIR}/external/include
 )
-
-set_source_files_properties(${TS_FILES} PROPERTIES OUTPUT_LOCATION "translations")
-qt5_add_translation(QM_FILES ${TS_FILES})
+foreach(ts qm IN ZIP_LISTS TS_FILES QM_FILES)
+    add_custom_command(OUTPUT ${qm}
+        DEPENDS ${CMAKE_SOURCE_DIR}/${ts}
+        COMMAND lrelease ${CMAKE_SOURCE_DIR}/${ts} -qm ${qm})
+    install(FILES ${qm} DESTINATION share/harbour-raw-view/translations)
+endforeach()
+add_custom_target(generate_qm_files ALL DEPENDS ${QM_FILES})
 
 install(FILES
     ${CMAKE_BINARY_DIR}/external/lib/libraw.so
@@ -83,10 +100,6 @@ install(TARGETS harbour-raw-view
 )
 install(DIRECTORY qml
     DESTINATION share/harbour-raw-view
-)
-install(DIRECTORY translations
-    DESTINATION share/harbour-raw-view
-    FILES_MATCHING PATTERN "*.qm"
 )
 install(FILES harbour-raw-view.desktop
     DESTINATION share/applications
@@ -109,10 +122,7 @@ FILE(GLOB TsFiles "translations/*.ts")
 add_custom_target(distfiles
     SOURCES
         harbour-raw-view.desktop
-        qml/harbour-raw-view.qml
-        qml/cover/CoverPage.qml
-        qml/pages/MainPage.qml
-        qml/pages/SecondPage.qml
+        ${QML_FILES}
         rpm/harbour-raw-view.changes.in
         rpm/harbour-raw-view.changes.run.in
         rpm/harbour-raw-view.spec
