@@ -69,8 +69,7 @@ Page {
             id: view
 
             property double p_scale: 1
-            property double p_scale_origin_x: 0
-            property double p_scale_origin_y: 0
+            property point p_scale_origin: Qt.point(0, 0)
 
             anchors.fill: parent
             wrapMode: PagedView.NoWrap
@@ -88,12 +87,8 @@ Page {
                             ImageItem {
                                 anchors.fill: parent
                                 image: preview
-                                transform: Scale {
-                                    xScale: view.p_scale
-                                    yScale: view.p_scale
-                                    origin.x: view.p_scale_origin_x
-                                    origin.y: view.p_scale_origin_y
-                                }
+                                scale: view.p_scale
+                                scaleCenter: view.p_scale_origin
                             }
                             Text {
                                 anchors.bottom: parent.bottom
@@ -115,13 +110,11 @@ Page {
 
                 onPinchUpdated: {
                     view.p_scale = Math.max(Math.min(pinch.scale, 4), 1)
-                    view.p_scale_origin_x = pinch.center.x
-                    view.p_scale_origin_y = pinch.center.y
+                    view.p_scale_origin = pinch.center
                 }
                 onPinchFinished: {
                     view.p_scale = 1
-                    view.p_scale_origin_x = 0
-                    view.p_scale_origin_y = 0
+                    view.p_scale_origin = Qt.point(0, 0)
                 }
             }
         }
