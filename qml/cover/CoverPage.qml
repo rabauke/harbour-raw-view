@@ -1,10 +1,9 @@
-import QtQuick 2.0
+import QtQuick 2.6
 import Sailfish.Silica 1.0
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: qsTr('Raw view')
+    CoverPlaceholder {
+        text: qsTr('Raw View')
+        icon.source: 'image://theme/icon-l-image'
     }
 }

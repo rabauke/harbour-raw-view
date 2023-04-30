@@ -3,8 +3,8 @@ Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour-raw-view
 Exec=harbour-raw-view
-Name=RawView
-Name[de]=RawView
+Name=Raw View
+Name[de]=Raw View
 
 [X-Sailjail]
 Permissions=UserDirs

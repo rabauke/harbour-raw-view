@@ -1,6 +1,6 @@
 Name:       harbour-raw-view
 
-Summary:    RawView raw format image viewer
+Summary:    Raw View raw format image viewer
 Version:    0.1
 Release:    1
 License:    BSD

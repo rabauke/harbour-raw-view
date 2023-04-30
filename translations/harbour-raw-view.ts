@@ -4,8 +4,8 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>Raw view</source>
-        <translation>Raw view</translation>
+        <source>Raw View</source>
+        <translation>Raw View</translation>
     </message>
 </context>
 <context>
