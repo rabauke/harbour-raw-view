@@ -2,6 +2,13 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
+    <name>About</name>
+    <message>
+        <source>_description_</source>
+        <translation>Raw-format image viewer for Sailfish OS.</translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <source>Raw View</source>
@@ -37,6 +44,10 @@
     <message>
         <source>Show image information</source>
         <translation></translation>
+    </message>
+    <message>
+        <source>About Raw View</source>
+        <translation>About Raw View</translation>
     </message>
 </context>
 </TS>

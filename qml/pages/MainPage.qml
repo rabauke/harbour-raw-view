@@ -53,6 +53,11 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: qsTr("About Raw View")
+                onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
+            }
+
+            MenuItem {
                 text: qsTr('Choose image folder')
                 onClicked: pageStack.animatorPush(folderPickerDialog)
             }
