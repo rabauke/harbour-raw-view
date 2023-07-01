@@ -47,7 +47,7 @@ Page {
                 showNavigationIndicator: true
                 showSystemFiles: true
                 dialogTitle: qsTr('Show images in')
-                onSelectedPathChanged: application.imageFolder = selectedPath
+                onSelectedPathChanged: appModel.imageFolder = selectedPath
             }
         }
 
@@ -79,7 +79,7 @@ Page {
             anchors.fill: parent
             wrapMode: PagedView.NoWrap
 
-            model: application.imageList
+            model: appModel.imageList
 
             delegate: Component {
                 id: delegateComponent
@@ -109,6 +109,9 @@ Page {
                     }
                 }
             }
+
+            Binding { target: appView; property: "currentIndex"; value: view.currentIndex }
+
             PinchArea {
                 id: pinchArea
                 anchors.fill: parent

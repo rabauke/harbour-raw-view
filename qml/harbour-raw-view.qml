@@ -4,9 +4,12 @@ import RawViewQuick 1.0
 import "pages"
 
 ApplicationWindow {
+    id: appView
+
+    property int currentIndex
 
     AppModel {
-        id: application
+        id: appModel
     }
 
     initialPage: Component {
