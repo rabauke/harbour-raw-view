@@ -49,5 +49,9 @@
         <source>About Raw View</source>
         <translation>Über Raw View</translation>
     </message>
+    <message>
+        <source>No raw-format images found in chosen image folder.</source>
+        <translation>Keine Rohformat-Bilder im gewählten Bildordner gefunden.</translation>
+    </message>
 </context>
 </TS>

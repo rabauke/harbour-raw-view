@@ -6,11 +6,12 @@ import "pages"
 ApplicationWindow {
     id: appView
 
-    property int currentIndex
-
     AppModel {
         id: appModel
     }
+
+    property int imageListCurrentIndex
+    property bool imageListEmpty: appModel.imageList.rowCount() === 0
 
     initialPage: Component {
         MainPage {}

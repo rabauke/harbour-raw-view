@@ -7,7 +7,7 @@ CoverBackground {
     CoverPlaceholder {
         text: qsTr('Raw View')
         icon.source: 'image://theme/icon-l-image'
-        visible: appModel.imageList.rowCount() === 0
+        visible: appView.imageListEmpty
     }
 
     PagedView {
@@ -18,7 +18,8 @@ CoverBackground {
 
         model: appModel.imageList
 
-        currentIndex: appView.currentIndex
+        currentIndex: appView.imageListCurrentIndex
+        visible: !appView.imageListEmpty
 
         delegate: Component {
             id: delegateComponent
@@ -39,5 +40,4 @@ CoverBackground {
             }
         }
     }
-
 }

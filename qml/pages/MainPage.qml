@@ -1,4 +1,5 @@
 import QtQuick 2.6
+import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import RawViewQuick 1.0
@@ -53,8 +54,8 @@ Page {
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About Raw View")
-                onClicked: pageStack.push(Qt.resolvedUrl("About.qml"))
+                text: qsTr('About Raw View')
+                onClicked: pageStack.push(Qt.resolvedUrl('About.qml'))
             }
 
             MenuItem {
@@ -80,6 +81,7 @@ Page {
             wrapMode: PagedView.NoWrap
 
             model: appModel.imageList
+            visible: !appView.imageListEmpty
 
             delegate: Component {
                 id: delegateComponent
@@ -110,7 +112,11 @@ Page {
                 }
             }
 
-            Binding { target: appView; property: "currentIndex"; value: view.currentIndex }
+            Binding {
+                target: appView
+                property: 'imageListCurrentIndex'
+                value: view.currentIndex
+            }
 
             PinchArea {
                 id: pinchArea
@@ -124,6 +130,30 @@ Page {
                     view.p_scale = 1
                     view.p_scale_origin = Qt.point(0, 0)
                 }
+            }
+        }
+
+        ColumnLayout {
+            anchors.fill: parent
+            visible: appView.imageListEmpty
+
+            TextArea {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: qsTr('No raw-format images found in chosen image folder.')
+                readOnly: true
+                font.pixelSize: Theme.fontSizeLarge
+                horizontalAlignment: TextEdit.AlignHCenter
+                backgroundStyle: TextEditor.NoBackground
+            }
+
+            Image {
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: 'image://theme/icon-l-image'
+                width: 2 * Theme.iconSizeExtraLarge
+                height: 2 * Theme.iconSizeExtraLarge
+                sourceSize.width: width
+                sourceSize.height: height
+                fillMode: Image.PreserveAspectFit
             }
         }
     }
