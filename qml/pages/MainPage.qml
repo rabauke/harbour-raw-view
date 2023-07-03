@@ -5,7 +5,7 @@ import Sailfish.Pickers 1.0
 import RawViewQuick 1.0
 
 Page {
-    id: page
+    id: mainPage
 
     function formatSpeed(speed) {
         if (speed >= 1)
@@ -32,6 +32,61 @@ Page {
         return result
     }
 
+    Component {
+        id: quickSelector
+
+        Page {
+            id: quickSelectorPage
+
+            SilicaListView {
+                id: listView
+
+                anchors.fill: parent
+
+                model: appModel.imageList
+                visible: !appView.imageListEmpty
+
+                delegate: ListItem {
+                    contentHeight: Theme.itemSizeSmall
+
+                    highlighted: index === view.currentIndex
+
+                    menu: ContextMenu {
+                        MenuItem {
+                            text: qsTr('Show image')
+                            onClicked: {
+                                view.currentIndex = index
+                                pageStack.pop()
+                            }
+                        }
+                    }
+                    Item {
+                        id: item
+                        height: Theme.itemSizeSmall
+                        width: parent.width
+                        Label {
+                            anchors.verticalCenter: item.verticalCenter
+                            x: Theme.horizontalPageMargin
+                            width: parent.width - 2 * x
+                            truncationMode: TruncationMode.Fade
+                            text: fileName
+                        }
+                    }
+                }
+
+                VerticalScrollDecorator {
+                    flickable: listView
+                }
+            }
+            onStatusChanged: {
+                if (status === PageStatus.Active) {
+                    listView.positionViewAtIndex(appView.imageListCurrentIndex,
+                                                 ListView.Center)
+                }
+            }
+        }
+    }
+
     allowedOrientations: Orientation.All
 
     property bool show_image_information: false
@@ -39,7 +94,7 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
-        contentHeight: page.height
+        contentHeight: mainPage.height
 
         Component {
             id: folderPickerDialog
@@ -59,16 +114,21 @@ Page {
             }
 
             MenuItem {
-                text: qsTr('Choose image folder')
-                onClicked: pageStack.animatorPush(folderPickerDialog)
-            }
-            MenuItem {
                 text: show_image_information ? qsTr('Hide image information') : qsTr(
                                                    'Show image information')
                 onClicked: {
                     show_image_information = !show_image_information
-                    console.log(show_image_information)
                 }
+            }
+
+            MenuItem {
+                text: qsTr('Choose image folder')
+                onClicked: pageStack.animatorPush(folderPickerDialog)
+            }
+
+            MenuItem {
+                text: qsTr('Quick selection')
+                onClicked: pageStack.animatorPush(quickSelector)
             }
         }
         PagedView {

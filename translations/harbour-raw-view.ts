@@ -53,5 +53,13 @@
         <source>No raw-format images found in chosen image folder.</source>
         <translation>No raw-format images found in chosen image folder.</translation>
     </message>
+    <message>
+        <source>Show image</source>
+        <translation>Show image</translation>
+    </message>
+    <message>
+        <source>Quick selection</source>
+        <translation>Quick selection</translation>
+    </message>
 </context>
 </TS>

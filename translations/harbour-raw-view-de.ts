@@ -53,5 +53,13 @@
         <source>No raw-format images found in chosen image folder.</source>
         <translation>Keine Rohformat-Bilder im gewählten Bildordner gefunden.</translation>
     </message>
+    <message>
+        <source>Show image</source>
+        <translation>Zeige Bild</translation>
+    </message>
+    <message>
+        <source>Quick selection</source>
+        <translation>Schnellauswahl</translation>
+    </message>
 </context>
 </TS>
