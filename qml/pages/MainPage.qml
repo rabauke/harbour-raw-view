@@ -157,14 +157,18 @@ Page {
                                 scale: view.p_scale
                                 scaleCenter: view.p_scale_origin
                             }
-                            Text {
+                            TextArea {
                                 anchors.bottom: parent.bottom
-                                anchors.horizontalCenter: parent.horizontalCenter
+                                anchors.bottomMargin: -Theme.paddingSmall
+                                labelVisible: false
+                                verticalAlignment: TextEdit.AlignBottom
                                 text: labelText(fileName, cameraMaker,
                                                 cameraModel, lensMaker,
                                                 lensModel, aperture,
                                                 focalLength, shutterSpeed, iso)
                                 color: Theme.highlightColor
+                                backgroundStyle: TextEditor.NoBackground
+                                readOnly: true
                                 visible: show_image_information
                             }
                         }
