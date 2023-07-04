@@ -1,5 +1,6 @@
-project(harbour-raw-view CXX)
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.18)
+
+project(harbour-raw-view VERSION 0.2.0 LANGUAGES CXX)
 
 find_package(Qt5 COMPONENTS Core Qml Quick LinguistTools REQUIRED)
 
@@ -51,6 +52,8 @@ set(TS_FILES
 list(TRANSFORM TS_FILES REPLACE "ts" "qm" OUTPUT_VARIABLE QM_FILES)
 list(TRANSFORM QM_FILES PREPEND ${CMAKE_BINARY_DIR}/)
 
+configure_file(src/Version.h.in ${CMAKE_BINARY_DIR}/src/Version.h @ONLY)
+
 add_executable(harbour-raw-view
     src/harbour-raw-view.cpp
     src/AppModel.hpp
@@ -73,7 +76,8 @@ target_compile_definitions(harbour-raw-view PRIVATE
 target_include_directories(harbour-raw-view PRIVATE
     $<BUILD_INTERFACE:
     ${SAILFISH_INCLUDE_DIRS}
->)
+>
+    ${CMAKE_BINARY_DIR}/src)
 target_link_libraries(harbour-raw-view
     Qt5::Core Qt5::Quick
     ${SAILFISH_LDFLAGS}
@@ -124,11 +128,12 @@ add_custom_target(distfiles
     SOURCES
         harbour-raw-view.desktop
         ${QML_FILES}
-        rpm/harbour-raw-view.changes.in
-        rpm/harbour-raw-view.changes.run.in
+        ${TsFiles}
+#        rpm/harbour-raw-view.changes.in
+#        rpm/harbour-raw-view.changes.run.in
         rpm/harbour-raw-view.spec
-        rpm/harbour-raw-view.yaml
-        ${TsFiles})
+#        rpm/harbour-raw-view.yaml
+)
 
 # Tell Qt Creator where the application executable(s) would be located on the
 # device.

@@ -14,7 +14,7 @@ Page {
             width: parent.width
             spacing: Theme.paddingMedium
             PageHeader {
-                title: "Raw View"
+                title: "Raw View v" + appModel.version
             }
             Text {
                 x: Theme.horizontalPageMargin
