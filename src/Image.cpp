@@ -109,7 +109,7 @@ void Image::load_raw(const QFileInfo& file_info) {
   LibRaw lib_raw;
   if (lib_raw.open_file(file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
       LIBRAW_SUCCESS)
-    throw std::runtime_error("Ooops");
+    throw ImageException("unable to open file");
   m_file_name = file_info.fileName();
   m_camera_maker = lib_raw.imgdata.idata.make;
   m_camera_model = lib_raw.imgdata.idata.model;
@@ -120,7 +120,7 @@ void Image::load_raw(const QFileInfo& file_info) {
   m_shutter_speed = lib_raw.imgdata.other.shutter;
   m_iso = lib_raw.imgdata.other.iso_speed;
   if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
-    throw std::runtime_error("Ooops");
+    throw ImageException("unable to extract thumbnail image");
   if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
     m_preview.loadFromData(reinterpret_cast<const uchar*>(lib_raw.imgdata.thumbnail.thumb),
                            lib_raw.imgdata.thumbnail.tlength);
@@ -137,6 +137,7 @@ void Image::load_raw(const QFileInfo& file_info) {
 
 void Image::load_nonraw(const QFileInfo& file_info) {
   m_file_name = file_info.fileName();
-  m_preview.load(file_info.absoluteFilePath());
+  if (not m_preview.load(file_info.absoluteFilePath()))
+    throw ImageException("unable to load image");
   m_is_valid = true;
 }

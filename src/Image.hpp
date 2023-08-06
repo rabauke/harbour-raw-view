@@ -1,9 +1,19 @@
 #pragma once
 
+#include <exception>
 #include <QString>
 #include <QStringList>
 #include <QFileInfo>
 #include <QImage>
+
+
+class ImageException : public std::runtime_error {
+  using base = std::runtime_error;
+
+public:
+  ImageException(const std::string &message) : base{message} {}
+  ImageException(const char *message) : base{message} {}
+};
 
 
 class Image {
