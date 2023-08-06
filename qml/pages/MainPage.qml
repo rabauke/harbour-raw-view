@@ -203,7 +203,7 @@ Page {
 
             TextArea {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr('No raw-format images found in chosen image folder.')
+                text: qsTr('No images found in chosen folder.')
                 readOnly: true
                 font.pixelSize: Theme.fontSizeLarge
                 horizontalAlignment: TextEdit.AlignHCenter

@@ -52,7 +52,7 @@ QHash<int, QByteArray> ImageListModel::roleNames() const {
 }
 
 
-void ImageListModel::set_file_names(const QStringList &file_paths) {
+void ImageListModel::set_file_names(const QFileInfoList &file_paths) {
   if (not m_images.empty()) {
     beginRemoveRows(QModelIndex(), 0, m_images.count() - 1);
     m_file_paths.clear();

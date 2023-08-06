@@ -1,4 +1,5 @@
 #include "AppModel.hpp"
+#include "Image.hpp"
 #include <QCoreApplication>
 #include <QSettings>
 #include <QStandardPaths>
@@ -63,22 +64,13 @@ ImageListModel* AppModel::get_image_list() const {
 
 
 void AppModel::generate_image_file_names() {
-  static const QStringList supported_file_extensions{
-      ".3fr", ".ari", ".arw", ".bay", ".braw", ".crw", ".cr2", ".cr3", ".cap", ".data", ".dcs",
-      ".dcr", ".dng", ".drf", ".eip", ".erf",  ".fff", ".gpr", ".iiq", ".k25", ".kdc",  ".mdc",
-      ".mef", ".mos", ".mrw", ".nef", ".nrw",  ".obm", ".orf", ".pef", ".ptx", ".pxn",  ".r3d",
-      ".raf", ".raw", ".rwl", ".rw2", ".rwz",  ".sr2", ".srf", ".srw", ".tif", ".x3f"};
-
   QDir dir{m_image_folder.toLocalFile()};
-  auto file_list{dir.entryList(QDir::Files)};
-  QStringList image_file_names;
+  auto file_list{dir.entryInfoList(QDir::Files)};
+  QFileInfoList image_files;
   for (const auto& file : file_list) {
-    for (const auto& extension : supported_file_extensions)
-      if (file.endsWith(extension, Qt::CaseInsensitive)) {
-        image_file_names.append(m_image_folder.toLocalFile() + "/" + file);
-        break;
-      }
+    if (Image::supported_file_extensions().contains(file.suffix(), Qt::CaseInsensitive))
+      image_files.append(file.absoluteFilePath());
   }
-  m_image_list_model->set_file_names(image_file_names);
+  m_image_list_model->set_file_names(image_files);
   emit image_list_changed();
 }

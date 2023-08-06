@@ -3,6 +3,7 @@
 #include <QtGlobal>
 #include <QObject>
 #include <QString>
+#include <QFileInfo>
 #include <QUrl>
 #include <QQmlListProperty>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
@@ -34,7 +35,7 @@ public:
   Q_PROPERTY(float iso READ iso NOTIFY image_properties_changed)
   Q_PROPERTY(QImage preview READ preview NOTIFY image_properties_changed)
 
-  void load(const QString& file_name);
+  void load(const QFileInfo& file_info);
 
   [[nodiscard]] bool is_valid() const;
   [[nodiscard]] QString file_name() const;

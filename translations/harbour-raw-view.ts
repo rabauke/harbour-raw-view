@@ -50,8 +50,8 @@
         <translation>About Raw View</translation>
     </message>
     <message>
-        <source>No raw-format images found in chosen image folder.</source>
-        <translation>No raw-format images found in chosen image folder.</translation>
+        <source>No images found in chosen folder.</source>
+        <translation>No images found in chosen folder.</translation>
     </message>
     <message>
         <source>Show image</source>

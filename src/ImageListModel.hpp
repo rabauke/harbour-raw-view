@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtCore>
+#include <QFileInfo>
 #include <QtGui>
 #include <QAbstractListModel>
 #if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
@@ -21,7 +22,7 @@ public:
   QML_NAMED_ELEMENT(ImageListModel)
 #endif
 
-  void set_file_names(const QStringList &file_paths);
+  void set_file_names(const QFileInfoList &file_paths);
 
   [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
   [[nodiscard]] QVariant data(const QModelIndex &index, int role) const override;
@@ -41,6 +42,6 @@ private:
   static constexpr int iso = Qt::UserRole + 8;
   static constexpr int preview = Qt::UserRole + 9;
 
-  QStringList m_file_paths;
+  QFileInfoList m_file_paths;
   mutable QList<QSharedPointer<ImagePropertiesModel>> m_images;
 };

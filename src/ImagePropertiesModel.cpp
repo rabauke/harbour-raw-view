@@ -60,9 +60,9 @@ QImage ImagePropertiesModel::preview() const {
 }
 
 
-void ImagePropertiesModel::load(const QString& file_name) {
+void ImagePropertiesModel::load(const QFileInfo& file_info) {
   try {
-    m_image.load(file_name);
+    m_image.load(file_info);
   } catch (...) {
   }
   emit image_properties_changed();

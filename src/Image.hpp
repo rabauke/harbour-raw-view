@@ -1,6 +1,8 @@
 #pragma once
 
 #include <QString>
+#include <QStringList>
+#include <QFileInfo>
 #include <QImage>
 
 
@@ -8,7 +10,7 @@ class Image {
 public:
   Image() = default;
   void reset();
-  void load(const QString &file_path);
+  void load(const QFileInfo &file_info);
   bool is_valid() const;
   QString file_name() const;
   QString camera_maker() const;
@@ -21,7 +23,15 @@ public:
   float iso() const;
   const QImage &preview() const;
 
+  static const QStringList &supported_file_extensions();
+
 private:
+  void load_raw(const QFileInfo &file_info);
+  void load_nonraw(const QFileInfo &file_info);
+
+  static const QStringList &supported_raw_file_extensions();
+  static const QStringList &supported_nonraw_file_extensions();
+
   bool m_is_valid{false};
   QString m_file_name;
   QString m_camera_maker;
