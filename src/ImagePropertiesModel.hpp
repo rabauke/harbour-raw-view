@@ -18,6 +18,7 @@ class ImagePropertiesModel : public QObject {
 
 public:
   explicit ImagePropertiesModel(QObject* parent = nullptr);
+  explicit ImagePropertiesModel(const QFileInfo& file_info, QObject* parent = nullptr);
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 4, 0)
   QML_NAMED_ELEMENT(ImagePropertiesModel)
@@ -35,7 +36,7 @@ public:
   Q_PROPERTY(float iso READ iso NOTIFY image_properties_changed)
   Q_PROPERTY(QImage preview READ preview NOTIFY image_properties_changed)
 
-  void load(const QFileInfo& file_info);
+  void load();
 
   [[nodiscard]] bool is_valid() const;
   [[nodiscard]] QString file_name() const;
@@ -53,6 +54,6 @@ signals:
   void image_properties_changed();
 
 private:
-
+  QFileInfo m_file_info;
   Image m_image;
 };

@@ -42,6 +42,5 @@ private:
   static constexpr int iso = Qt::UserRole + 8;
   static constexpr int preview = Qt::UserRole + 9;
 
-  QFileInfoList m_file_paths;
   mutable QList<QSharedPointer<ImagePropertiesModel>> m_images;
 };

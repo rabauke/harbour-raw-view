@@ -5,6 +5,11 @@ ImagePropertiesModel::ImagePropertiesModel(QObject* parent) : QObject{parent} {
 }
 
 
+ImagePropertiesModel::ImagePropertiesModel(const QFileInfo& file_info, QObject* parent)
+    : QObject{parent}, m_file_info{file_info} {
+}
+
+
 bool ImagePropertiesModel::is_valid() const {
   return m_image.is_valid();
 }
@@ -60,9 +65,9 @@ QImage ImagePropertiesModel::preview() const {
 }
 
 
-void ImagePropertiesModel::load(const QFileInfo& file_info) {
+void ImagePropertiesModel::load() {
   try {
-    m_image.load(file_info);
+    m_image.load(m_file_info);
   } catch (...) {
   }
   emit image_properties_changed();
