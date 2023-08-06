@@ -1,6 +1,7 @@
 #include "Image.hpp"
 #include <stdexcept>
 #include <libraw/libraw.h>
+#include <exiv2/exiv2.hpp>
 #include <QFileInfo>
 #include <QImageReader>
 
@@ -139,5 +140,16 @@ void Image::load_nonraw(const QFileInfo& file_info) {
   m_file_name = file_info.fileName();
   if (not m_preview.load(file_info.absoluteFilePath()))
     throw ImageException("unable to load image");
+  auto image{Exiv2::ImageFactory::open(file_info.absoluteFilePath().toLocal8Bit().data())};
+  image->readMetadata();
+  auto& exif_data{image->exifData()};
+  m_camera_maker = QString::fromStdString(exif_data["Exif.Image.Make"].toString());
+  m_camera_model = QString::fromStdString(exif_data["Exif.Image.Model"].toString());
+  m_lens_maker = QString::fromStdString(exif_data["Exif.Photo.LensMake"].toString());
+  m_lens = QString::fromStdString(exif_data["Exif.Photo.LensModel"].toString());
+  m_focal_length = exif_data["Exif.Photo.FocalLength"].toFloat();
+  m_aperture = exif_data["Exif.Photo.FNumber"].toFloat();
+  m_shutter_speed = exif_data["Exif.Photo.ExposureTime"].toFloat();
+  m_iso = exif_data["Exif.Photo.ISOSpeedRatings"].toFloat();
   m_is_valid = true;
 }
