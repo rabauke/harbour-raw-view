@@ -33,11 +33,6 @@ bool Image::is_valid() const {
 }
 
 
-QString Image::file_name() const {
-  return m_file_name;
-}
-
-
 QString Image::camera_maker() const {
   return m_camera_maker;
 }
@@ -111,7 +106,6 @@ void Image::load_raw(const QFileInfo& file_info) {
   if (lib_raw.open_file(file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
       LIBRAW_SUCCESS)
     throw ImageException("unable to open file");
-  m_file_name = file_info.fileName();
   m_camera_maker = lib_raw.imgdata.idata.make;
   m_camera_model = lib_raw.imgdata.idata.model;
   m_lens_maker = lib_raw.imgdata.lens.LensMake;
@@ -137,7 +131,6 @@ void Image::load_raw(const QFileInfo& file_info) {
 
 
 void Image::load_nonraw(const QFileInfo& file_info) {
-  m_file_name = file_info.fileName();
   if (not m_preview.load(file_info.absoluteFilePath()))
     throw ImageException("unable to load image");
   auto image{Exiv2::ImageFactory::open(file_info.absoluteFilePath().toLocal8Bit().data())};

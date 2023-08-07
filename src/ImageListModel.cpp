@@ -13,8 +13,6 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
   const int row{index.row()};
   if (0 <= row and row < m_images.count()) {
     auto &image{m_images[row]};
-    if (not image->is_valid())
-      image->load();
     switch (role) {
       case file_name:
         return image->file_name();

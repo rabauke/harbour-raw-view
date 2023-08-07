@@ -43,7 +43,6 @@ private:
   static const QStringList &supported_nonraw_file_extensions();
 
   bool m_is_valid{false};
-  QString m_file_name;
   QString m_camera_maker;
   QString m_camera_model;
   QString m_lens_maker;

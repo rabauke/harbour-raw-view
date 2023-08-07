@@ -24,7 +24,6 @@ public:
   QML_NAMED_ELEMENT(ImagePropertiesModel)
 #endif
 
-  Q_PROPERTY(bool isValid READ is_valid NOTIFY image_properties_changed)
   Q_PROPERTY(QString fileName READ file_name NOTIFY image_properties_changed)
   Q_PROPERTY(QString maker READ camera_maker NOTIFY image_properties_changed)
   Q_PROPERTY(QString model READ camera_model NOTIFY image_properties_changed)
@@ -36,24 +35,25 @@ public:
   Q_PROPERTY(float iso READ iso NOTIFY image_properties_changed)
   Q_PROPERTY(QImage preview READ preview NOTIFY image_properties_changed)
 
-  void load();
-
-  [[nodiscard]] bool is_valid() const;
   [[nodiscard]] QString file_name() const;
-  [[nodiscard]] QString camera_maker() const;
-  [[nodiscard]] QString camera_model() const;
-  [[nodiscard]] QString lens_maker() const;
-  [[nodiscard]] QString lens_model() const;
-  [[nodiscard]] float focal_length() const;
-  [[nodiscard]] float aperture() const;
-  [[nodiscard]] float shutter_speed() const;
-  [[nodiscard]] float iso() const;
-  [[nodiscard]] QImage preview() const;
+  [[nodiscard]] QString camera_maker();
+  [[nodiscard]] QString camera_model();
+  [[nodiscard]] QString lens_maker();
+  [[nodiscard]] QString lens_model();
+  [[nodiscard]] float focal_length();
+  [[nodiscard]] float aperture();
+  [[nodiscard]] float shutter_speed();
+  [[nodiscard]] float iso();
+  [[nodiscard]] QImage preview();
 
 signals:
   void image_properties_changed();
 
 private:
+  void load();
+
   QFileInfo m_file_info;
   Image m_image;
+  bool m_image_loaded{false};
+  bool m_image_failed{false};
 };
