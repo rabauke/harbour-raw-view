@@ -116,6 +116,7 @@ Page {
             MenuItem {
                 text: show_image_information ? qsTr('Hide image information') : qsTr(
                                                    'Show image information')
+                visible: !imageListEmpty
                 onClicked: {
                     show_image_information = !show_image_information
                 }
@@ -128,6 +129,7 @@ Page {
 
             MenuItem {
                 text: qsTr('Quick selection')
+                visible: !imageListEmpty
                 onClicked: pageStack.animatorPush(quickSelector)
             }
         }
