@@ -5,7 +5,7 @@
     <name>About</name>
     <message>
         <source>_description_</source>
-        <translation>Raw-format image viewer for Sailfish OS.</translation>
+        <translation>Image viewer with raw-format support for Sailfish OS.</translation>
     </message>
 </context>
 <context>

@@ -5,7 +5,7 @@
     <name>About</name>
     <message>
         <source>_description_</source>
-        <translation>Rohformat-Bildbetrachter für Sailfish OS.</translation>
+        <translation>Bildbetrachter mit Unterstützung von Rohformat-Bildern für Sailfish OS.</translation>
     </message>
 </context>
 <context>
