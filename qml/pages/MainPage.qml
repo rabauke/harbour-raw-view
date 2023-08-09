@@ -145,6 +145,8 @@ Page {
             model: appModel.imageList
             visible: !appView.imageListEmpty
 
+            dragThreshold: Theme.startDragDistance/2
+
             delegate: Component {
                 id: delegateComponent
                 Loader {
