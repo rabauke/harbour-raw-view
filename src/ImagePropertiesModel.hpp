@@ -35,7 +35,7 @@ public:
   Q_PROPERTY(float iso READ iso NOTIFY image_properties_changed)
   Q_PROPERTY(QImage preview READ preview NOTIFY image_properties_changed)
 
-  [[nodiscard]] QString file_name() const;
+  [[nodiscard]] QString file_name();
   [[nodiscard]] QString camera_maker();
   [[nodiscard]] QString camera_model();
   [[nodiscard]] QString lens_maker();
@@ -50,10 +50,5 @@ signals:
   void image_properties_changed();
 
 private:
-  void load();
-
-  QFileInfo m_file_info;
   Image m_image;
-  bool m_image_loaded{false};
-  bool m_image_failed{false};
 };

@@ -14,67 +14,74 @@ static QStringList to_string_list(const QByteArrayList& list) {
 }
 
 
-void Image::reset() {
-  *this = Image();
+Image::Image(const QFileInfo& file_info) : m_file_info{file_info} {
 }
 
 
-void Image::load(const QFileInfo& file_info) {
-  reset();
-  if (supported_raw_file_extensions().contains(file_info.suffix(), Qt::CaseInsensitive))
-    load_raw(file_info);
-  else if (supported_nonraw_file_extensions().contains(file_info.suffix(), Qt::CaseInsensitive))
-    load_nonraw(file_info);
+QString Image::file_name() {
+  return m_file_info.fileName();
 }
 
 
-bool Image::is_valid() const {
-  return m_is_valid;
-}
-
-
-QString Image::camera_maker() const {
+QString Image::camera_maker() {
+  load_metadata();
   return m_camera_maker;
 }
 
 
-QString Image::camera_model() const {
+QString Image::camera_model() {
+  load_metadata();
   return m_camera_model;
 }
 
 
-QString Image::lens_maker() const {
+QString Image::lens_maker() {
+  load_metadata();
   return m_lens_maker;
 }
 
 
-QString Image::lens_model() const {
+QString Image::lens_model() {
+  load_metadata();
   return m_lens;
 }
 
 
-float Image::focal_length() const {
+float Image::focal_length() {
+  load_metadata();
   return m_focal_length;
 }
 
 
-float Image::aperture() const {
+float Image::aperture() {
+  load_metadata();
   return m_aperture;
 }
 
 
-float Image::shutter_speed() const {
+float Image::shutter_speed() {
+  load_metadata();
   return m_shutter_speed;
 }
 
 
-float Image::iso() const {
+float Image::iso() {
+  load_metadata();
   return m_iso;
 }
 
 
-const QImage& Image::preview() const {
-  return m_preview;
+QImage Image::preview() {
+  QImage image;
+  try {
+    if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
+      load_raw(image);
+    else if (supported_nonraw_file_extensions().contains(m_file_info.suffix(),
+                                                         Qt::CaseInsensitive))
+      load_nonraw(image);
+  } catch (...) {
+  }
+  return image;
 }
 
 
@@ -101,9 +108,50 @@ const QStringList& Image::supported_file_extensions() {
 }
 
 
-void Image::load_raw(const QFileInfo& file_info) {
+void Image::load_raw(QImage& image) {
   LibRaw lib_raw;
-  if (lib_raw.open_file(file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
+  if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
+      LIBRAW_SUCCESS)
+    throw ImageException("unable to open file");
+  if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
+    throw ImageException("unable to extract thumbnail image");
+  if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
+    image.loadFromData(reinterpret_cast<const uchar*>(lib_raw.imgdata.thumbnail.thumb),
+                       lib_raw.imgdata.thumbnail.tlength);
+    if (lib_raw.imgdata.sizes.flip == 3)
+      image = image.transformed(QTransform().rotate(180));
+    else if (lib_raw.imgdata.sizes.flip == 5)
+      image = image.transformed(QTransform().rotate(270));
+    else if (lib_raw.imgdata.sizes.flip == 6)
+      image = image.transformed(QTransform().rotate(90));
+  }
+}
+
+
+void Image::load_nonraw(QImage& image) {
+  if (not image.load(m_file_info.absoluteFilePath()))
+    throw ImageException("unable to load image");
+}
+
+
+void Image::load_metadata() {
+  if (not m_metadata_loaded) {
+    m_metadata_loaded = true;
+    try {
+      if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
+        load_metadata_raw();
+      else if (supported_nonraw_file_extensions().contains(m_file_info.suffix(),
+                                                           Qt::CaseInsensitive))
+        load_metadata_nonraw();
+    } catch (...) {
+    }
+  }
+}
+
+
+void Image::load_metadata_raw() {
+  LibRaw lib_raw;
+  if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
       LIBRAW_SUCCESS)
     throw ImageException("unable to open file");
   m_camera_maker = lib_raw.imgdata.idata.make;
@@ -114,26 +162,11 @@ void Image::load_raw(const QFileInfo& file_info) {
   m_aperture = lib_raw.imgdata.other.aperture;
   m_shutter_speed = lib_raw.imgdata.other.shutter;
   m_iso = lib_raw.imgdata.other.iso_speed;
-  if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
-    throw ImageException("unable to extract thumbnail image");
-  if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
-    m_preview.loadFromData(reinterpret_cast<const uchar*>(lib_raw.imgdata.thumbnail.thumb),
-                           lib_raw.imgdata.thumbnail.tlength);
-    if (lib_raw.imgdata.sizes.flip == 3)
-      m_preview = m_preview.transformed(QTransform().rotate(180));
-    else if (lib_raw.imgdata.sizes.flip == 5)
-      m_preview = m_preview.transformed(QTransform().rotate(270));
-    else if (lib_raw.imgdata.sizes.flip == 6)
-      m_preview = m_preview.transformed(QTransform().rotate(90));
-  }
-  m_is_valid = true;
 }
 
 
-void Image::load_nonraw(const QFileInfo& file_info) {
-  if (not m_preview.load(file_info.absoluteFilePath()))
-    throw ImageException("unable to load image");
-  auto image{Exiv2::ImageFactory::open(file_info.absoluteFilePath().toLocal8Bit().data())};
+void Image::load_metadata_nonraw() {
+  auto image{Exiv2::ImageFactory::open(m_file_info.absoluteFilePath().toLocal8Bit().data())};
   image->readMetadata();
   auto& exif_data{image->exifData()};
   m_camera_maker = QString::fromStdString(exif_data["Exif.Image.Make"].toString());
@@ -144,5 +177,4 @@ void Image::load_nonraw(const QFileInfo& file_info) {
   m_aperture = exif_data["Exif.Photo.FNumber"].toFloat();
   m_shutter_speed = exif_data["Exif.Photo.ExposureTime"].toFloat();
   m_iso = exif_data["Exif.Photo.ISOSpeedRatings"].toFloat();
-  m_is_valid = true;
 }
