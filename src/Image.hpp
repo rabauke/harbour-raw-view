@@ -16,6 +16,19 @@ public:
 };
 
 
+enum class ImageOrientation {
+  unknown = 0,
+  original = 1,
+  flip_horizontally = 2,
+  rot_180 = 3,
+  flip_verticallay = 4,
+  rot_90_flip_horizontally = 5,
+  rot_90 = 6,
+  rot_90_flip_vertically = 7,
+  rot_270 = 8
+};
+
+
 class Image {
 public:
   Image() = default;
@@ -53,4 +66,5 @@ private:
   float m_aperture{0};
   float m_shutter_speed{0};
   float m_iso{0};
+  ImageOrientation m_image_orientation{ImageOrientation::unknown};
 };

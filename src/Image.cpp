@@ -72,6 +72,7 @@ float Image::iso() {
 
 
 QImage Image::preview() {
+  load_metadata();
   QImage image;
   try {
     if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
@@ -79,6 +80,12 @@ QImage Image::preview() {
     else if (supported_nonraw_file_extensions().contains(m_file_info.suffix(),
                                                          Qt::CaseInsensitive))
       load_nonraw(image);
+    if (m_image_orientation == ImageOrientation::rot_180)
+      image = image.transformed(QTransform().rotate(180));
+    else if (m_image_orientation == ImageOrientation::rot_90)
+      image = image.transformed(QTransform().rotate(90));
+    else if (m_image_orientation == ImageOrientation::rot_270)
+      image = image.transformed(QTransform().rotate(270));
   } catch (...) {
   }
   return image;
@@ -118,12 +125,6 @@ void Image::load_raw(QImage& image) {
   if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
     image.loadFromData(reinterpret_cast<const uchar*>(lib_raw.imgdata.thumbnail.thumb),
                        lib_raw.imgdata.thumbnail.tlength);
-    if (lib_raw.imgdata.sizes.flip == 3)
-      image = image.transformed(QTransform().rotate(180));
-    else if (lib_raw.imgdata.sizes.flip == 5)
-      image = image.transformed(QTransform().rotate(270));
-    else if (lib_raw.imgdata.sizes.flip == 6)
-      image = image.transformed(QTransform().rotate(90));
   }
 }
 
@@ -162,6 +163,20 @@ void Image::load_metadata_raw() {
   m_aperture = lib_raw.imgdata.other.aperture;
   m_shutter_speed = lib_raw.imgdata.other.shutter;
   m_iso = lib_raw.imgdata.other.iso_speed;
+  switch (lib_raw.imgdata.sizes.flip) {
+    case 3:
+      m_image_orientation = ImageOrientation::rot_180;
+      break;
+    case 5:
+      m_image_orientation = ImageOrientation::rot_270;
+      break;
+    case 6:
+      m_image_orientation = ImageOrientation::rot_90;
+      break;
+    default:
+      m_image_orientation = ImageOrientation::original;
+      break;
+  }
 }
 
 
@@ -177,4 +192,6 @@ void Image::load_metadata_nonraw() {
   m_aperture = exif_data["Exif.Photo.FNumber"].toFloat();
   m_shutter_speed = exif_data["Exif.Photo.ExposureTime"].toFloat();
   m_iso = exif_data["Exif.Photo.ISOSpeedRatings"].toFloat();
+  m_image_orientation =
+      static_cast<ImageOrientation>(exif_data["Exif.Image.Orientation"].toInt64());
 }
