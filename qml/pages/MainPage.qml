@@ -22,13 +22,13 @@ Page {
         else
             result += ' ' + qsTr('unknown camera')
         if (lensModel !== '' && lensMaker !== '')
-            result += ', ' + lensMaker + ' ' + lensModel
+            result += ' \u2022 ' + lensMaker + ' ' + lensModel
         else if (lensModel !== '')
-            result += ', ' + lensModel
+            result += ' \u2022 ' + lensModel
         if (aperture !== 0)
-            result += ', ' + 'f/' + aperture.toFixed(1)
-        result += ', ' + focalLength.toFixed(1) + 'mm, ' + formatSpeed(
-                    shutterSpeed) + ', ' + 'ISO ' + iso
+            result += ' \u2022 ' + 'f/' + aperture.toLocaleString(Qt.locale(), 'f', 1)
+        result += ' \u2022 ' + focalLength.toLocaleString(Qt.locale(), 'f', 1) + '\u202Fmm \u2022 ' +
+                formatSpeed(shutterSpeed) + ' \u2022 ' + 'ISO\u00A0' + iso
         return result
     }
 
