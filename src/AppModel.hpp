@@ -26,22 +26,29 @@ public:
 
   Q_PROPERTY(QString version MEMBER m_version CONSTANT)
   Q_PROPERTY(
-      QUrl imageFolder READ image_folder WRITE set_image_folder NOTIFY image_folder_changed)
+      QUrl imageFolder READ get_image_folder WRITE set_image_folder NOTIFY image_folder_changed)
   Q_PROPERTY(ImageListModel* imageList READ get_image_list NOTIFY image_list_changed)
+  Q_PROPERTY(bool showImageInfo READ get_show_image_info WRITE set_show_image_info NOTIFY
+                 show_image_info_changed)
 
 signals:
   void image_folder_changed();
   void image_list_changed();
+  void show_image_info_changed();
 
 private:
-  [[nodiscard]] QUrl image_folder() const;
+  [[nodiscard]] QUrl get_image_folder() const;
   void set_image_folder(const QUrl& new_image_folder);
 
   [[nodiscard]] ImageListModel* get_image_list() const;
+
+  [[nodiscard]] bool get_show_image_info() const;
+  void set_show_image_info(bool);
 
   void generate_image_file_names();
 
   QString m_version{QString::fromStdString(project_version)};
   QUrl m_image_folder;
   QScopedPointer<ImageListModel> m_image_list_model;
+  bool m_show_image_info;
 };

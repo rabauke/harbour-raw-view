@@ -89,8 +89,6 @@ Page {
 
     allowedOrientations: Orientation.All
 
-    property bool show_image_information: false
-
     SilicaFlickable {
         anchors.fill: parent
 
@@ -114,11 +112,11 @@ Page {
             }
 
             MenuItem {
-                text: show_image_information ? qsTr('Hide image information') : qsTr(
+                text: appModel.showImageInfo ? qsTr('Hide image information') : qsTr(
                                                    'Show image information')
                 visible: !imageListEmpty
                 onClicked: {
-                    show_image_information = !show_image_information
+                    appModel.showImageInfo = !appModel.showImageInfo
                 }
             }
 
@@ -173,7 +171,7 @@ Page {
                                 color: Theme.highlightColor
                                 backgroundStyle: TextEditor.NoBackground
                                 readOnly: true
-                                visible: show_image_information
+                                visible: appModel.showImageInfo
                             }
                         }
                     }
