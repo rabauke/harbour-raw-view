@@ -8,5 +8,3 @@ Raw View is a simple image viewer application for Sailfish OS with support for c
 ## Screenshots
 
 <img src="https://raw.githubusercontent.com/rabauke/harbour-raw-view/master/screenshots/screenshot_01.png" width="360">
-
-<img src="https://raw.githubusercontent.com/rabauke/harbour-raw-view/master/screenshots/screenshot_02.png" height="360">
