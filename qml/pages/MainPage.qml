@@ -81,12 +81,8 @@ Page {
                 VerticalScrollDecorator {
                     flickable: listView
                 }
-            }
-            onStatusChanged: {
-                if (status === PageStatus.Active) {
-                    listView.positionViewAtIndex(appView.imageListCurrentIndex,
-                                                 ListView.Center)
-                }
+
+                Component.onCompleted: positionViewAtIndex(appView.imageListCurrentIndex, ListView.Beginning)
             }
         }
     }
