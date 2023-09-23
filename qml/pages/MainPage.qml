@@ -7,6 +7,8 @@ import RawViewQuick 1.0
 Page {
     id: mainPage
 
+    allowedOrientations: Orientation.All
+
     function formatSpeed(speed) {
         if (speed >= 1)
             return qsTr('%1"').arg(speed)
@@ -37,6 +39,8 @@ Page {
 
         Page {
             id: quickSelectorPage
+
+            allowedOrientations: Orientation.All
 
             SilicaListView {
                 id: listView
@@ -87,8 +91,6 @@ Page {
         }
     }
 
-    allowedOrientations: Orientation.All
-
     SilicaFlickable {
         anchors.fill: parent
 
@@ -122,13 +124,13 @@ Page {
 
             MenuItem {
                 text: qsTr('Choose image folder')
-                onClicked: pageStack.animatorPush(folderPickerDialog)
+                onClicked: pageStack.push(folderPickerDialog)
             }
 
             MenuItem {
                 text: qsTr('Quick selection')
                 visible: !imageListEmpty
-                onClicked: pageStack.animatorPush(quickSelector)
+                onClicked: pageStack.push(quickSelector)
             }
         }
         PagedView {
@@ -223,4 +225,6 @@ Page {
             }
         }
     }
+
+    Component.onCompleted: pageStack.pushAttached(quickSelector)
 }
