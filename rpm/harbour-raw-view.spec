@@ -1,7 +1,7 @@
 Name:       harbour-raw-view
 
 Summary:    Raw View image viewer
-Version:    0.3.0
+Version:    0.4.0
 Release:    1
 License:    BSD
 URL:        https://github.com/rabauke/harbour-raw-view
