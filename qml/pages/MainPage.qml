@@ -27,10 +27,14 @@ Page {
             result += ' \u2022 ' + lensMaker + ' ' + lensModel
         else if (lensModel !== '')
             result += ' \u2022 ' + lensModel
-        if (aperture !== 0)
+        if (aperture > 0)
             result += ' \u2022 ' + 'f/' + aperture.toLocaleString(Qt.locale(), 'f', 1)
-        result += ' \u2022 ' + focalLength.toLocaleString(Qt.locale(), 'f', 1) + '\u202Fmm \u2022 ' +
-                formatSpeed(shutterSpeed) + ' \u2022 ' + 'ISO\u00A0' + iso
+        if (focalLength > 0)
+            result += ' \u2022 ' + focalLength.toLocaleString(Qt.locale(), 'f', 1) + '\u202Fmm'
+        if (shutterSpeed > 0)
+            result += ' \u2022 ' + formatSpeed(shutterSpeed)
+        if (iso > 0)
+            result += ' \u2022 ' + 'ISO\u00A0' + iso
         return result
     }
 
