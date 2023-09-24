@@ -63,7 +63,7 @@ Page {
                         MenuItem {
                             text: qsTr('Show image')
                             onClicked: {
-                                view.currentIndex = index
+                                appView.imageListCurrentIndex = index
                                 pageStack.pop()
                             }
                         }
@@ -180,10 +180,18 @@ Page {
                 }
             }
 
+            currentIndex: appView.imageListCurrentIndex
+
             Binding {
                 target: appView
                 property: 'imageListCurrentIndex'
                 value: view.currentIndex
+            }
+
+            Binding {
+                target: appView
+                property: 'imageListCount'
+                value: view.count
             }
 
             PinchArea {

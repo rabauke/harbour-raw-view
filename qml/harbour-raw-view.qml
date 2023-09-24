@@ -10,12 +10,13 @@ ApplicationWindow {
         id: appModel
     }
 
-    property int imageListCurrentIndex
+    property int imageListCurrentIndex: 0
+    property int imageListCount
     property bool imageListEmpty: appModel.imageList.rowCount() === 0
 
     initialPage: Component {
         MainPage {}
     }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    cover: Qt.resolvedUrl('cover/CoverPage.qml')
     allowedOrientations: defaultAllowedOrientations
 }

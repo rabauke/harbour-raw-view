@@ -10,6 +10,19 @@ CoverBackground {
         visible: appView.imageListEmpty
     }
 
+    CoverActionList {
+        CoverAction {
+            iconSource: 'image://theme/icon-cover-previous'
+            onTriggered: appView.imageListCurrentIndex = appView.imageListCurrentIndex - 1 >= 0 ? appView.imageListCurrentIndex - 1 : appView.imageListCurrentIndex
+
+        }
+        CoverAction {
+            iconSource: 'image://theme/icon-cover-next'
+            onTriggered: appView.imageListCurrentIndex = appView.imageListCurrentIndex + 1 < appView.imageListCount ? appView.imageListCurrentIndex + 1 :  view.currentIndex
+        }
+        enabled: !appView.imageListEmpty
+    }
+
     PagedView {
         id: view
 
