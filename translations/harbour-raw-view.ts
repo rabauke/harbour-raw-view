@@ -7,6 +7,18 @@
         <source>_description_</source>
         <translation>Image viewer with raw-format support for Sailfish OS.</translation>
     </message>
+    <message>
+        <source>Copyright</source>
+        <translation>Copyright</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>License</translation>
+    </message>
+    <message>
+        <source>External components</source>
+        <translation>External components</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
@@ -27,23 +39,23 @@
     </message>
     <message>
         <source>%1&quot;</source>
-        <translation></translation>
+        <translation>%1&quot;</translation>
     </message>
     <message>
         <source>1/%1&quot;</source>
-        <translation></translation>
+        <translation>1/%1&quot;</translation>
     </message>
     <message>
         <source>unknown camera</source>
-        <translation></translation>
+        <translation>unknown camera</translation>
     </message>
     <message>
         <source>Hide image information</source>
-        <translation></translation>
+        <translation>Hide image information</translation>
     </message>
     <message>
         <source>Show image information</source>
-        <translation></translation>
+        <translation>Show image information</translation>
     </message>
     <message>
         <source>About Raw View</source>
@@ -60,6 +72,21 @@
     <message>
         <source>Quick selection</source>
         <translation>Quick selection</translation>
+    </message>
+</context>
+<context>
+    <name>ThirdPartyComponent</name>
+    <message>
+        <source>version</source>
+        <translation>version</translation>
+    </message>
+    <message>
+        <source>license</source>
+        <translation>license</translation>
+    </message>
+    <message>
+        <source>url</source>
+        <translation>url</translation>
     </message>
 </context>
 </TS>

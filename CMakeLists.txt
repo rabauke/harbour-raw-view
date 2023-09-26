@@ -58,6 +58,7 @@ set(QML_FILES
     qml/pages/MainPage.qml
     qml/pages/About.qml
     qml/cover/CoverPage.qml
+    qml/components/ThirdPartyComponent.qml
     )
 
 set(TS_FILES

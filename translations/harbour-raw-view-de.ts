@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1">
+<TS version="2.1" language="de_DE">
 <context>
     <name>About</name>
     <message>
         <source>_description_</source>
         <translation>Bildbetrachter mit Unterstützung von Rohformat-Bildern für Sailfish OS.</translation>
+    </message>
+    <message>
+        <source>Copyright</source>
+        <translation>Copyright</translation>
+    </message>
+    <message>
+        <source>License</source>
+        <translation>Lizenz</translation>
+    </message>
+    <message>
+        <source>External components</source>
+        <translation>Externe Komponenten</translation>
     </message>
 </context>
 <context>
@@ -60,6 +72,21 @@
     <message>
         <source>Quick selection</source>
         <translation>Schnellauswahl</translation>
+    </message>
+</context>
+<context>
+    <name>ThirdPartyComponent</name>
+    <message>
+        <source>version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <source>license</source>
+        <translation>Lizenz</translation>
+    </message>
+    <message>
+        <source>url</source>
+        <translation>URL</translation>
     </message>
 </context>
 </TS>

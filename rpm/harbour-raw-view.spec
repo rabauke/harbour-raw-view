@@ -3,7 +3,7 @@ Name:       harbour-raw-view
 Summary:    Raw View image viewer
 Version:    0.4.0
 Release:    1
-License:    BSD
+License:    GPL-2.0-or-later
 URL:        https://github.com/rabauke/harbour-raw-view
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
