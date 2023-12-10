@@ -50,14 +50,6 @@
         <translation>unbekannte Kamera</translation>
     </message>
     <message>
-        <source>Hide image information</source>
-        <translation>Verberge Bildinformation</translation>
-    </message>
-    <message>
-        <source>Show image information</source>
-        <translation>Zeige Bildinformation</translation>
-    </message>
-    <message>
         <source>About Raw View</source>
         <translation>Über Raw View</translation>
     </message>

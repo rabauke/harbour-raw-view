@@ -28,9 +28,11 @@ Page {
         else if (lensModel !== '')
             result += ' \u2022 ' + lensModel
         if (aperture > 0)
-            result += ' \u2022 ' + 'f/' + aperture.toLocaleString(Qt.locale(), 'f', 1)
+            result += ' \u2022 ' + 'f/' + aperture.toLocaleString(Qt.locale(),
+                                                                  'f', 1)
         if (focalLength > 0)
-            result += ' \u2022 ' + focalLength.toLocaleString(Qt.locale(), 'f', 1) + '\u202Fmm'
+            result += ' \u2022 ' + focalLength.toLocaleString(Qt.locale(), 'f',
+                                                              1) + '\u202Fmm'
         if (shutterSpeed > 0)
             result += ' \u2022 ' + formatSpeed(shutterSpeed)
         if (iso > 0)
@@ -86,7 +88,9 @@ Page {
                     flickable: listView
                 }
 
-                Component.onCompleted: positionViewAtIndex(appView.imageListCurrentIndex, ListView.Beginning)
+                Component.onCompleted: positionViewAtIndex(
+                                           appView.imageListCurrentIndex,
+                                           ListView.Beginning)
             }
         }
     }
@@ -114,15 +118,6 @@ Page {
             }
 
             MenuItem {
-                text: appModel.showImageInfo ? qsTr('Hide image information') : qsTr(
-                                                   'Show image information')
-                visible: !imageListEmpty
-                onClicked: {
-                    appModel.showImageInfo = !appModel.showImageInfo
-                }
-            }
-
-            MenuItem {
                 text: qsTr('Choose image folder')
                 onClicked: pageStack.push(folderPickerDialog)
             }
@@ -145,7 +140,7 @@ Page {
             model: appModel.imageList
             visible: !appView.imageListEmpty
 
-            dragThreshold: Theme.startDragDistance/2.5
+            dragThreshold: Theme.startDragDistance / 2.5
 
             delegate: Component {
                 id: delegateComponent
@@ -177,6 +172,25 @@ Page {
                                 readOnly: true
                                 visible: appModel.showImageInfo
                             }
+                            PinchArea {
+                                id: pinchArea
+                                anchors.fill: parent
+
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onDoubleClicked: appModel.showImageInfo
+                                                     = !appModel.showImageInfo
+                                }
+                                onPinchUpdated: {
+                                    view.p_scale = Math.max(
+                                                Math.min(pinch.scale, 4), 1)
+                                    view.p_scale_origin = pinch.center
+                                }
+                                onPinchFinished: {
+                                    view.p_scale = 1
+                                    view.p_scale_origin = Qt.point(0, 0)
+                                }
+                            }
                         }
                     }
                 }
@@ -194,20 +208,6 @@ Page {
                 target: appView
                 property: 'imageListCount'
                 value: view.count
-            }
-
-            PinchArea {
-                id: pinchArea
-                anchors.fill: parent
-
-                onPinchUpdated: {
-                    view.p_scale = Math.max(Math.min(pinch.scale, 4), 1)
-                    view.p_scale_origin = pinch.center
-                }
-                onPinchFinished: {
-                    view.p_scale = 1
-                    view.p_scale_origin = Qt.point(0, 0)
-                }
             }
         }
 

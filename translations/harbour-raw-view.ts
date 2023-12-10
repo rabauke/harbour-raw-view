@@ -50,14 +50,6 @@
         <translation>unknown camera</translation>
     </message>
     <message>
-        <source>Hide image information</source>
-        <translation>Hide image information</translation>
-    </message>
-    <message>
-        <source>Show image information</source>
-        <translation>Show image information</translation>
-    </message>
-    <message>
         <source>About Raw View</source>
         <translation>About Raw View</translation>
     </message>
