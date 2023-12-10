@@ -145,11 +145,13 @@ Page {
             model: appModel.imageList
             visible: !appView.imageListEmpty
 
-            dragThreshold: Theme.startDragDistance/2
+            dragThreshold: Theme.startDragDistance/2.5
 
             delegate: Component {
                 id: delegateComponent
                 Loader {
+                    asynchronous: true
+                    visible: status === Loader.Ready
                     sourceComponent: Component {
                         Item {
                             width: view.width
