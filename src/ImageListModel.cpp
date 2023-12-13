@@ -16,6 +16,12 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
     switch (role) {
       case file_name:
         return image->file_name();
+      case file_size:
+        return image->file_size();
+      case image_width:
+        return image->image_width();
+      case image_height:
+        return image->image_height();
       case camera_maker:
         return image->camera_maker();
       case camera_model:
@@ -32,6 +38,8 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
         return image->shutter_speed();
       case iso:
         return image->iso();
+      case date_time_original:
+        return image->date_time_original();
       case preview:
         return image->preview();
     }
@@ -40,12 +48,28 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
 }
 
 
+ImagePropertiesModel *ImageListModel::get(qint32 index) const {
+  if (0 <= index and index < m_images.count())
+    return m_images[index].data();
+  return nullptr;
+}
+
+
 QHash<int, QByteArray> ImageListModel::roleNames() const {
-  static const QHash<int, QByteArray> role_names{
-      {file_name, "fileName"},   {camera_maker, "cameraMaker"},   {camera_model, "cameraModel"},
-      {lens_maker, "lensMaker"}, {lens_model, "lensModel"},       {focal_length, "focalLength"},
-      {aperture, "aperture"},    {shutter_speed, "shutterSpeed"}, {iso, "iso"},
-      {preview, "preview"}};
+  static const QHash<int, QByteArray> role_names{{file_name, "fileName"},
+                                                 {file_size, "fileSize"},
+                                                 {image_width, "imageWidth"},
+                                                 {image_height, "imageHeight"},
+                                                 {camera_maker, "cameraMaker"},
+                                                 {camera_model, "cameraModel"},
+                                                 {lens_maker, "lensMaker"},
+                                                 {lens_model, "lensModel"},
+                                                 {focal_length, "focalLength"},
+                                                 {aperture, "aperture"},
+                                                 {shutter_speed, "shutterSpeed"},
+                                                 {iso, "iso"},
+                                                 {date_time_original, "dateTimeOriginal"},
+                                                 {preview, "preview"}};
   return role_names;
 }
 

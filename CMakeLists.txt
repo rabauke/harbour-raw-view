@@ -57,6 +57,7 @@ set(QML_FILES
     qml/harbour-raw-view.qml
     qml/pages/MainPage.qml
     qml/pages/About.qml
+    qml/pages/Metadata.qml
     qml/cover/CoverPage.qml
     qml/components/ThirdPartyComponent.qml
     )

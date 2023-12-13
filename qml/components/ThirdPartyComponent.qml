@@ -13,7 +13,7 @@ Item {
     Label {
         id: label1
         x: Theme.horizontalPageMargin
-        width: parent.width - 2 * Theme.horizontalPageMargin
+        width: parent.width - 2 * x
         text: componnet + (version !== '' ? ' ' + qsTr('version') + ' ' + version : '')
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeMedium
@@ -21,7 +21,7 @@ Item {
     Label {
         id: label2
         x: Theme.horizontalPageMargin
-        width: parent.width - 2 * Theme.horizontalPageMargin
+        width: parent.width - 2 * x
         anchors.top: label1.bottom
         text: qsTr('license') + ': ' + license + '<br>' + qsTr('url') + ': <a href=\"' + url + '\">' + url + '</a>'
         color: Theme.secondaryColor

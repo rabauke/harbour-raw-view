@@ -5,6 +5,8 @@ import '../components'
 Page {
     id: about_page
 
+    allowedOrientations: Orientation.All
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: column.height

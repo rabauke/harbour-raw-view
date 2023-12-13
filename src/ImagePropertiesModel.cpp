@@ -15,6 +15,21 @@ QString ImagePropertiesModel::file_name() {
 }
 
 
+double ImagePropertiesModel::file_size() {
+  return m_image.file_size();
+}
+
+
+double ImagePropertiesModel::image_width() {
+  return m_image.image_width();
+}
+
+
+double ImagePropertiesModel::image_height() {
+  return m_image.image_height();
+}
+
+
 QString ImagePropertiesModel::camera_maker() {
   return m_image.camera_maker();
 }
@@ -35,23 +50,28 @@ QString ImagePropertiesModel::lens_model() {
 }
 
 
-float ImagePropertiesModel::focal_length() {
+double ImagePropertiesModel::focal_length() {
   return m_image.focal_length();
 }
 
 
-float ImagePropertiesModel::aperture() {
+double ImagePropertiesModel::aperture() {
   return m_image.aperture();
 }
 
 
-float ImagePropertiesModel::shutter_speed() {
+double ImagePropertiesModel::shutter_speed() {
   return m_image.shutter_speed();
 }
 
 
-float ImagePropertiesModel::iso() {
+double ImagePropertiesModel::iso() {
   return m_image.iso();
+}
+
+
+QDateTime ImagePropertiesModel::date_time_original() {
+  return m_image.date_time_original();
 }
 
 

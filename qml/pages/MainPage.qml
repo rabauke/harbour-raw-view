@@ -15,8 +15,8 @@ Page {
         return qsTr('1/%1"').arg(Math.round(1 / speed))
     }
 
-    function labelText(fileName, cameraMaker, cameraModel, lensMaker, lensModel, aperture, focalLength, shutterSpeed, iso) {
-        var result = fileName + ':'
+    function labelText(cameraMaker, cameraModel, lensMaker, lensModel, aperture, focalLength, shutterSpeed, iso) {
+        var result = ''
         if (cameraMaker !== '')
             result += ' ' + cameraMaker
         if (cameraModel !== '')
@@ -112,6 +112,8 @@ Page {
         }
 
         PullDownMenu {
+            visible: appModel.showImageInfo || imageListEmpty
+
             MenuItem {
                 text: qsTr('About Raw View')
                 onClicked: pageStack.push(Qt.resolvedUrl('About.qml'))
@@ -162,12 +164,12 @@ Page {
                                 anchors.bottom: parent.bottom
                                 anchors.bottomMargin: -Theme.paddingSmall
                                 labelVisible: false
+                                horizontalAlignment: TextEdit.AlignHCenter
                                 verticalAlignment: TextEdit.AlignBottom
-                                text: labelText(fileName, cameraMaker,
-                                                cameraModel, lensMaker,
-                                                lensModel, aperture,
+                                text: labelText(cameraMaker, cameraModel,
+                                                lensMaker, lensModel, aperture,
                                                 focalLength, shutterSpeed, iso)
-                                color: Theme.highlightColor
+                                color: Theme.primaryColor
                                 backgroundStyle: TextEditor.NoBackground
                                 readOnly: true
                                 visible: appModel.showImageInfo
@@ -190,6 +192,17 @@ Page {
                                     view.p_scale = 1
                                     view.p_scale_origin = Qt.point(0, 0)
                                 }
+                            }
+                            IconButton {
+                                anchors.top: parent.top
+                                anchors.left: parent.left
+                                anchors.topMargin: Theme.paddingLarge
+                                anchors.leftMargin: Theme.paddingMedium
+                                icon.source: 'image://theme/icon-m-about'
+                                visible: appModel.showImageInfo
+                                enabled: appModel.showImageInfo
+                                onClicked: pageStack.push(Qt.resolvedUrl(
+                                                              'Metadata.qml'))
                             }
                         }
                     }

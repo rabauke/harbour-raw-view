@@ -67,6 +67,77 @@
     </message>
 </context>
 <context>
+    <name>Metadata</name>
+    <message>
+        <source>%1&quot;</source>
+        <translation>%1&quot;</translation>
+    </message>
+    <message>
+        <source>1/%1&quot;</source>
+        <translation>1/%1&quot;</translation>
+    </message>
+    <message>
+        <source>Image metadata</source>
+        <translation>Image metadata</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <source>File name</source>
+        <translation>File name</translation>
+    </message>
+    <message>
+        <source>File size</source>
+        <translation>File size</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Size</translation>
+    </message>
+    <message>
+        <source>Date and time</source>
+        <translation>Date and time</translation>
+    </message>
+    <message>
+        <source>Camera details</source>
+        <translation>Camera details</translation>
+    </message>
+    <message>
+        <source>Camera manufacturer</source>
+        <translation>Camera manufacturer</translation>
+    </message>
+    <message>
+        <source>Camera model</source>
+        <translation>Camera model</translation>
+    </message>
+    <message>
+        <source>Lens manufacturer</source>
+        <translation>Lens manufacturer</translation>
+    </message>
+    <message>
+        <source>Lens model</source>
+        <translation>Lens model</translation>
+    </message>
+    <message>
+        <source>Focal length</source>
+        <translation>Focal length</translation>
+    </message>
+    <message>
+        <source>Aperture</source>
+        <translation>Aperture</translation>
+    </message>
+    <message>
+        <source>Shutter speed</source>
+        <translation>Shutter speed</translation>
+    </message>
+    <message>
+        <source>ISO</source>
+        <translation>ISO</translation>
+    </message>
+</context>
+<context>
     <name>ThirdPartyComponent</name>
     <message>
         <source>version</source>
