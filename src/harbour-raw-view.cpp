@@ -1,6 +1,10 @@
 #ifdef QT_QML_DEBUG
-  #include <QtQuick>
+#include <QtQuick>
 #endif
+#include <QScopedPointer>
+#include <QGuiApplication>
+#include <QMetaType>
+#include <QQmlEngine>
 #include <QQuickView>
 #include <sailfishapp.h>
 #include "AppModel.hpp"
