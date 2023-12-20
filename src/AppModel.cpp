@@ -10,12 +10,13 @@
 
 namespace {
 
-  static QString settings_path() {
+  QString settings_path() {
     return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
            QCoreApplication::applicationName() + ".conf";
   }
 
 }  // namespace
+
 #endif
 
 
