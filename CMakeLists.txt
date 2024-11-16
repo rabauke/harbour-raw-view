@@ -42,11 +42,11 @@ add_custom_target(extract_libexiv2
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/exiv2/exiv2.hpp
     DEPENDS extract_libexiv2
-    COMMAND rm -rf build
-    COMMAND mkdir build
-    COMMAND cmake -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=Off -DCMAKE_POSITION_INDEPENDENT_CODE=On -DEXIV2_ENABLE_XMP=Off -DBUILD_WITH_STACK_PROTECTOR=Off -DEXIV2_ENABLE_BROTLI=Off -DEXIV2_ENABLE_INIH=Off -DEXIV2_BUILD_EXIV2_COMMAND=Off -DEXIV2_ENABLE_VIDEO=Off -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/external -B build -S .
-    COMMAND cmake --build build
-    COMMAND cmake --build build --target install
+    COMMAND ${CMAKE_COMMAND} -E rm -rf build
+    COMMAND ${CMAKE_COMMAND} -E make_directory build
+    COMMAND ${CMAKE_COMMAND} -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=Off -DCMAKE_POSITION_INDEPENDENT_CODE=On -DEXIV2_ENABLE_XMP=Off -DBUILD_WITH_STACK_PROTECTOR=Off -DEXIV2_ENABLE_BROTLI=Off -DEXIV2_ENABLE_INIH=Off -DEXIV2_BUILD_EXIV2_COMMAND=Off -DEXIV2_ENABLE_VIDEO=Off -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/external -B build -S .
+    COMMAND ${CMAKE_COMMAND} --build build
+    COMMAND ${CMAKE_COMMAND} --build build --target install
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/exiv2-0.28.0
 )
 
@@ -98,10 +98,13 @@ target_include_directories(harbour-raw-view PRIVATE
     ${SAILFISH_INCLUDE_DIRS}
 >
     ${CMAKE_BINARY_DIR}/src)
-target_link_libraries(harbour-raw-view
+target_link_libraries(harbour-raw-view PRIVATE
     Qt5::Core Qt5::Quick
     ${SAILFISH_LDFLAGS}
-    ${CMAKE_BINARY_DIR}/external/lib/libraw.so ${CMAKE_BINARY_DIR}/external/lib/libexiv2.a stdc++fs m z
+    ${CMAKE_BINARY_DIR}/external/lib/libraw.so
+    ${CMAKE_BINARY_DIR}/external/lib/libexiv2.a
+    $<$<AND:$<CXX_COMPILER_ID:GNU>,$<VERSION_LESS:$<CXX_COMPILER_VERSION>,9.0>>:stdc++fs>
+    m z
 )
 target_include_directories(harbour-raw-view
     PRIVATE ${CMAKE_BINARY_DIR}/external/include
