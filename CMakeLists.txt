@@ -18,7 +18,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/external)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/translations)
 
 add_custom_target(extract_libraw
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/LibRaw-0.21.1.tar.gz
+    COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/LibRaw-0.21.3.tar.gz
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/libraw/libraw.h
@@ -26,18 +26,18 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/libraw/libraw.h
     COMMAND ./configure --disable-openmp --prefix=${CMAKE_BINARY_DIR}/external
     COMMAND make
     COMMAND make install
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.1
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.3
 )
 
 set_target_properties(extract_libraw PROPERTIES ADDITIONAL_CLEAN_FILES
-    ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.1
+    ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.3
     ${CMAKE_BINARY_DIR}/external/bin
     ${CMAKE_BINARY_DIR}/external/include
     ${CMAKE_BINARY_DIR}/external/lib
     ${CMAKE_BINARY_DIR}/external/share)
 
 add_custom_target(extract_libexiv2
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/exiv2-0.28.0.tar.gz
+    COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/exiv2-0.28.3.tar.gz
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/exiv2/exiv2.hpp
@@ -47,7 +47,7 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/exiv2/exiv2.hpp
     COMMAND ${CMAKE_COMMAND} -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_SHARED_LIBS=Off -DCMAKE_POSITION_INDEPENDENT_CODE=On -DEXIV2_ENABLE_XMP=Off -DBUILD_WITH_STACK_PROTECTOR=Off -DEXIV2_ENABLE_BROTLI=Off -DEXIV2_ENABLE_INIH=Off -DEXIV2_BUILD_EXIV2_COMMAND=Off -DEXIV2_ENABLE_VIDEO=Off -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/external -B build -S .
     COMMAND ${CMAKE_COMMAND} --build build
     COMMAND ${CMAKE_COMMAND} --build build --target install
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/exiv2-0.28.0
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/exiv2-0.28.3
 )
 
 set(CMAKE_SKIP_RPATH OFF)
