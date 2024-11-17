@@ -135,6 +135,7 @@ Page {
         }
         PagedView {
             id: view
+            cacheSize: 3
 
             property double p_scale: 1
             property point p_scale_origin: Qt.point(0, 0)
@@ -145,7 +146,8 @@ Page {
             model: appModel.imageList
             visible: !appView.imageListEmpty
 
-            dragThreshold: Theme.startDragDistance / 2.5
+            dragThreshold: Theme.startDragDistance / 3
+            moveDragThreshold: Theme.startDragDistance / 3
 
             delegate: Component {
                 id: delegateComponent

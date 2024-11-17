@@ -41,6 +41,7 @@ CoverBackground {
 
     PagedView {
         id: view
+        cacheSize: 3
 
         anchors.fill: parent
         wrapMode: PagedView.NoWrap
