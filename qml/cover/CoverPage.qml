@@ -10,17 +10,33 @@ CoverBackground {
         visible: appView.imageListEmpty
     }
 
+    property bool currentImageIsNotFirst: !appView.imageListEmpty && (appView.imageListCurrentIndex - 1 >= 0)
+    property bool currentImageIsNotLast: !appView.imageListEmpty && (appView.imageListCurrentIndex + 1 < appView.imageListCount)
+
     CoverActionList {
         CoverAction {
             iconSource: 'image://theme/icon-cover-previous'
-            onTriggered: appView.imageListCurrentIndex = appView.imageListCurrentIndex - 1 >= 0 ? appView.imageListCurrentIndex - 1 : appView.imageListCurrentIndex
-
+            onTriggered: appView.imageListCurrentIndex = currentImageIsNotFirst ? appView.imageListCurrentIndex - 1 : appView.imageListCurrentIndex
         }
         CoverAction {
             iconSource: 'image://theme/icon-cover-next'
-            onTriggered: appView.imageListCurrentIndex = appView.imageListCurrentIndex + 1 < appView.imageListCount ? appView.imageListCurrentIndex + 1 :  view.currentIndex
+            onTriggered: appView.imageListCurrentIndex = currentImageIsNotLast ? appView.imageListCurrentIndex + 1 : appView.imageListCurrentIndex
         }
-        enabled: !appView.imageListEmpty
+        enabled: currentImageIsNotFirst && currentImageIsNotLast
+    }
+    CoverActionList {
+        CoverAction {
+            iconSource: 'image://theme/icon-cover-previous'
+            onTriggered: appView.imageListCurrentIndex = currentImageIsNotFirst ? appView.imageListCurrentIndex - 1 : appView.imageListCurrentIndex
+        }
+        enabled: currentImageIsNotFirst && !currentImageIsNotLast
+    }
+    CoverActionList {
+        CoverAction {
+            iconSource: 'image://theme/icon-cover-next'
+            onTriggered: appView.imageListCurrentIndex = currentImageIsNotLast ? appView.imageListCurrentIndex + 1 : appView.imageListCurrentIndex
+        }
+        enabled: !currentImageIsNotFirst && currentImageIsNotLast
     }
 
     PagedView {

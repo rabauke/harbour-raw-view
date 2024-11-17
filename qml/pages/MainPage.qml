@@ -9,6 +9,9 @@ Page {
 
     allowedOrientations: Orientation.All
 
+    property bool currentImageIsNotFirst: !appView.imageListEmpty && (appView.imageListCurrentIndex - 1 >= 0)
+    property bool currentImageIsNotLast: !appView.imageListEmpty && (appView.imageListCurrentIndex + 1 < appView.imageListCount)
+
     function formatSpeed(speed) {
         if (speed >= 1)
             return qsTr('%1"').arg(speed)
@@ -203,6 +206,24 @@ Page {
                                 enabled: appModel.showImageInfo
                                 onClicked: pageStack.push(Qt.resolvedUrl(
                                                               'Metadata.qml'))
+                            }
+                            IconButton {
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.left: parent.left
+                                anchors.leftMargin: Theme.paddingSmall
+                                icon.source: 'image://theme/icon-m-left'
+                                visible: appModel.showImageInfo && currentImageIsNotFirst
+                                enabled: appModel.showImageInfo && currentImageIsNotFirst
+                                onClicked: appView.imageListCurrentIndex = currentImageIsNotFirst ? appView.imageListCurrentIndex - 1 : appView.imageListCurrentIndex
+                            }
+                            IconButton {
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.right: parent.right
+                                anchors.rightMargin: Theme.paddingSmall
+                                icon.source: 'image://theme/icon-m-right'
+                                visible: appModel.showImageInfo && currentImageIsNotLast
+                                enabled: appModel.showImageInfo && currentImageIsNotLast
+                                onClicked: appView.imageListCurrentIndex = currentImageIsNotLast ? appView.imageListCurrentIndex + 1 : appView.imageListCurrentIndex
                             }
                         }
                     }
