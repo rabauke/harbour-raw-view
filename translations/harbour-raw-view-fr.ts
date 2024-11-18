@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de">
+<TS version="2.1" language="fr">
 <context>
     <name>About</name>
     <message>
         <source>_description_</source>
-        <translation>Bildbetrachter mit Unterstützung von Rohformat-Bildern für Sailfish OS.</translation>
+        <translation>Visionneuse d&apos;images avec prise en charge du format RAW pour Sailfish OS.</translation>
     </message>
     <message>
         <source>Copyright</source>
-        <translation>Copyright</translation>
+        <translation>Droits d&apos;auteur</translation>
     </message>
     <message>
         <source>License</source>
-        <translation>Lizenz</translation>
+        <translation>Licence</translation>
     </message>
     <message>
         <source>External components</source>
-        <translation>Externe Komponenten</translation>
+        <translation>Composants externes</translation>
     </message>
 </context>
 <context>
@@ -31,11 +31,11 @@
     <name>MainPage</name>
     <message>
         <source>Choose image folder</source>
-        <translation>Wähle Bildordner</translation>
+        <translation>Choisir le dossier de l&apos;image</translation>
     </message>
     <message>
         <source>Show images in</source>
-        <translation>Zeige Bilder in</translation>
+        <translation>Afficher les images dans</translation>
     </message>
     <message>
         <source>%1&quot;</source>
@@ -47,23 +47,23 @@
     </message>
     <message>
         <source>unknown camera</source>
-        <translation>unbekannte Kamera</translation>
+        <translation>caméra inconnue</translation>
     </message>
     <message>
         <source>About Raw View</source>
-        <translation>Über Raw View</translation>
+        <translation>Au sujet de Raw View</translation>
     </message>
     <message>
         <source>No images found in chosen folder.</source>
-        <translation>Keine Bilder im gewählten Ordner gefunden.</translation>
+        <translation>Aucune image n&apos;a été trouvée dans le dossier choisi.</translation>
     </message>
     <message>
         <source>Show image</source>
-        <translation>Zeige Bild</translation>
+        <translation>Afficher l&apos;image</translation>
     </message>
     <message>
         <source>Quick selection</source>
-        <translation>Schnellauswahl</translation>
+        <translation>Sélection rapide</translation>
     </message>
 </context>
 <context>
@@ -78,59 +78,59 @@
     </message>
     <message>
         <source>Image metadata</source>
-        <translation>Bildmetadaten</translation>
+        <translation>Métadonnées de l&apos;image</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>Fichier</translation>
     </message>
     <message>
         <source>File name</source>
-        <translation>Dateiname</translation>
+        <translation>Nom du fichier</translation>
     </message>
     <message>
         <source>File size</source>
-        <translation>Dateigröße</translation>
+        <translation>Taille du fichier</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Taille</translation>
     </message>
     <message>
         <source>Date and time</source>
-        <translation>Datum und Uhrzeit</translation>
+        <translation>Date et heure</translation>
     </message>
     <message>
         <source>Camera details</source>
-        <translation>Kameradaten</translation>
+        <translation>Détails de l&apos;appareil photo</translation>
     </message>
     <message>
         <source>Camera manufacturer</source>
-        <translation>Kamerahersteller</translation>
+        <translation>Fabricant d&apos;appareils photo</translation>
     </message>
     <message>
         <source>Camera model</source>
-        <translation>Kamera</translation>
+        <translation>Modèle d&apos;appareil photo</translation>
     </message>
     <message>
         <source>Lens manufacturer</source>
-        <translation>Objektivhersteller</translation>
+        <translation>Fabricant d&apos;objectifs</translation>
     </message>
     <message>
         <source>Lens model</source>
-        <translation>Objektiv</translation>
+        <translation>Modèle d&apos;objectif</translation>
     </message>
     <message>
         <source>Focal length</source>
-        <translation>Brennweite</translation>
+        <translation>Longueur focale</translation>
     </message>
     <message>
         <source>Aperture</source>
-        <translation>Blende</translation>
+        <translation>Ouverture</translation>
     </message>
     <message>
         <source>Shutter speed</source>
-        <translation>Belichtungszeit</translation>
+        <translation>Vitesse d&apos;obturation</translation>
     </message>
     <message>
         <source>ISO</source>
@@ -141,11 +141,11 @@
     <name>ThirdPartyComponent</name>
     <message>
         <source>version</source>
-        <translation>Version</translation>
+        <translation>version</translation>
     </message>
     <message>
         <source>license</source>
-        <translation>Lizenz</translation>
+        <translation>licence</translation>
     </message>
     <message>
         <source>url</source>

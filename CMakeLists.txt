@@ -64,7 +64,12 @@ set(QML_FILES
 
 set(TS_FILES
     translations/harbour-raw-view.ts
-    translations/harbour-raw-view-de.ts)
+    translations/harbour-raw-view-de.ts
+    translations/harbour-raw-view-en_GB.ts
+    translations/harbour-raw-view-en_US.ts
+    translations/harbour-raw-view-es.ts
+    translations/harbour-raw-view-fr.ts
+    translations/harbour-raw-view-ru.ts)
 list(TRANSFORM TS_FILES REPLACE "ts" "qm" OUTPUT_VARIABLE QM_FILES)
 list(TRANSFORM QM_FILES PREPEND ${CMAKE_BINARY_DIR}/)
 

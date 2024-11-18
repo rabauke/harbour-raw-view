@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de">
+<TS version="2.1" language="es">
 <context>
     <name>About</name>
     <message>
         <source>_description_</source>
-        <translation>Bildbetrachter mit Unterstützung von Rohformat-Bildern für Sailfish OS.</translation>
+        <translation>Visor de imágenes compatible con formatos RAW para Sailfish OS.</translation>
     </message>
     <message>
         <source>Copyright</source>
+        <translatorcomment>Copyright</translatorcomment>
         <translation>Copyright</translation>
     </message>
     <message>
         <source>License</source>
-        <translation>Lizenz</translation>
+        <translation>Licencia</translation>
     </message>
     <message>
         <source>External components</source>
-        <translation>Externe Komponenten</translation>
+        <translation>Componentes externos</translation>
     </message>
 </context>
 <context>
@@ -31,11 +32,11 @@
     <name>MainPage</name>
     <message>
         <source>Choose image folder</source>
-        <translation>Wähle Bildordner</translation>
+        <translation>Elegir carpeta de imágenes</translation>
     </message>
     <message>
         <source>Show images in</source>
-        <translation>Zeige Bilder in</translation>
+        <translation>Mostrar imágenes en</translation>
     </message>
     <message>
         <source>%1&quot;</source>
@@ -47,23 +48,23 @@
     </message>
     <message>
         <source>unknown camera</source>
-        <translation>unbekannte Kamera</translation>
+        <translation>cámara desconocida</translation>
     </message>
     <message>
         <source>About Raw View</source>
-        <translation>Über Raw View</translation>
+        <translation>Acerca de Raw View</translation>
     </message>
     <message>
         <source>No images found in chosen folder.</source>
-        <translation>Keine Bilder im gewählten Ordner gefunden.</translation>
+        <translation>No se han encontrado imágenes en la carpeta.</translation>
     </message>
     <message>
         <source>Show image</source>
-        <translation>Zeige Bild</translation>
+        <translation>Mostrar imagen</translation>
     </message>
     <message>
         <source>Quick selection</source>
-        <translation>Schnellauswahl</translation>
+        <translation>Selección rápida</translation>
     </message>
 </context>
 <context>
@@ -78,59 +79,59 @@
     </message>
     <message>
         <source>Image metadata</source>
-        <translation>Bildmetadaten</translation>
+        <translation>Metadatos de imagen</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>Fichero</translation>
     </message>
     <message>
         <source>File name</source>
-        <translation>Dateiname</translation>
+        <translation>Nombre del fichero</translation>
     </message>
     <message>
         <source>File size</source>
-        <translation>Dateigröße</translation>
+        <translation>Tamaño del fichero</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Talla</translation>
     </message>
     <message>
         <source>Date and time</source>
-        <translation>Datum und Uhrzeit</translation>
+        <translation>Fecha y hora</translation>
     </message>
     <message>
         <source>Camera details</source>
-        <translation>Kameradaten</translation>
+        <translation>Detalles de la cámara</translation>
     </message>
     <message>
         <source>Camera manufacturer</source>
-        <translation>Kamerahersteller</translation>
+        <translation>Fabricante de cámaras</translation>
     </message>
     <message>
         <source>Camera model</source>
-        <translation>Kamera</translation>
+        <translation>Modelo de cámara</translation>
     </message>
     <message>
         <source>Lens manufacturer</source>
-        <translation>Objektivhersteller</translation>
+        <translation>Fabricante de lentes</translation>
     </message>
     <message>
         <source>Lens model</source>
-        <translation>Objektiv</translation>
+        <translation>Modelo de lente</translation>
     </message>
     <message>
         <source>Focal length</source>
-        <translation>Brennweite</translation>
+        <translation>Distancia focal</translation>
     </message>
     <message>
         <source>Aperture</source>
-        <translation>Blende</translation>
+        <translation>Apertura</translation>
     </message>
     <message>
         <source>Shutter speed</source>
-        <translation>Belichtungszeit</translation>
+        <translation>Velocidad de obturación</translation>
     </message>
     <message>
         <source>ISO</source>
@@ -141,11 +142,11 @@
     <name>ThirdPartyComponent</name>
     <message>
         <source>version</source>
-        <translation>Version</translation>
+        <translation>versión</translation>
     </message>
     <message>
         <source>license</source>
-        <translation>Lizenz</translation>
+        <translation>licencia</translation>
     </message>
     <message>
         <source>url</source>

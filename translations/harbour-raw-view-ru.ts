@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="de">
+<TS version="2.1" language="ru">
 <context>
     <name>About</name>
     <message>
         <source>_description_</source>
-        <translation>Bildbetrachter mit Unterstützung von Rohformat-Bildern für Sailfish OS.</translation>
+        <translation>Программа просмотра изображений с поддержкой формата raw для Sailfish OS.</translation>
     </message>
     <message>
         <source>Copyright</source>
-        <translation>Copyright</translation>
+        <translation>Авторское право</translation>
     </message>
     <message>
         <source>License</source>
-        <translation>Lizenz</translation>
+        <translation>Лицензия</translation>
     </message>
     <message>
         <source>External components</source>
-        <translation>Externe Komponenten</translation>
+        <translation>Внешние компоненты</translation>
     </message>
 </context>
 <context>
@@ -31,11 +31,11 @@
     <name>MainPage</name>
     <message>
         <source>Choose image folder</source>
-        <translation>Wähle Bildordner</translation>
+        <translation>Выберите папку с изображениями</translation>
     </message>
     <message>
         <source>Show images in</source>
-        <translation>Zeige Bilder in</translation>
+        <translation>Показать изображения в</translation>
     </message>
     <message>
         <source>%1&quot;</source>
@@ -47,23 +47,23 @@
     </message>
     <message>
         <source>unknown camera</source>
-        <translation>unbekannte Kamera</translation>
+        <translation>неизвестная камера</translation>
     </message>
     <message>
         <source>About Raw View</source>
-        <translation>Über Raw View</translation>
+        <translation>О Raw View</translation>
     </message>
     <message>
         <source>No images found in chosen folder.</source>
-        <translation>Keine Bilder im gewählten Ordner gefunden.</translation>
+        <translation>В выбранной папке не найдено ни одного изображения.</translation>
     </message>
     <message>
         <source>Show image</source>
-        <translation>Zeige Bild</translation>
+        <translation>Показать изображение</translation>
     </message>
     <message>
         <source>Quick selection</source>
-        <translation>Schnellauswahl</translation>
+        <translation>Быстрый выбор</translation>
     </message>
 </context>
 <context>
@@ -78,59 +78,59 @@
     </message>
     <message>
         <source>Image metadata</source>
-        <translation>Bildmetadaten</translation>
+        <translation>Метаданные изображения</translation>
     </message>
     <message>
         <source>File</source>
-        <translation>Datei</translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <source>File name</source>
-        <translation>Dateiname</translation>
+        <translation>Имя файла</translation>
     </message>
     <message>
         <source>File size</source>
-        <translation>Dateigröße</translation>
+        <translation>Размер файла</translation>
     </message>
     <message>
         <source>Size</source>
-        <translation>Größe</translation>
+        <translation>Размер</translation>
     </message>
     <message>
         <source>Date and time</source>
-        <translation>Datum und Uhrzeit</translation>
+        <translation>Дата и время</translation>
     </message>
     <message>
         <source>Camera details</source>
-        <translation>Kameradaten</translation>
+        <translation>Детали камеры</translation>
     </message>
     <message>
         <source>Camera manufacturer</source>
-        <translation>Kamerahersteller</translation>
+        <translation>Производитель камеры</translation>
     </message>
     <message>
         <source>Camera model</source>
-        <translation>Kamera</translation>
+        <translation>Модель камеры</translation>
     </message>
     <message>
         <source>Lens manufacturer</source>
-        <translation>Objektivhersteller</translation>
+        <translation>Производитель объективов</translation>
     </message>
     <message>
         <source>Lens model</source>
-        <translation>Objektiv</translation>
+        <translation>Модель объектива</translation>
     </message>
     <message>
         <source>Focal length</source>
-        <translation>Brennweite</translation>
+        <translation>Фокусное расстояние</translation>
     </message>
     <message>
         <source>Aperture</source>
-        <translation>Blende</translation>
+        <translation>Апертура</translation>
     </message>
     <message>
         <source>Shutter speed</source>
-        <translation>Belichtungszeit</translation>
+        <translation>Выдержка</translation>
     </message>
     <message>
         <source>ISO</source>
@@ -141,15 +141,15 @@
     <name>ThirdPartyComponent</name>
     <message>
         <source>version</source>
-        <translation>Version</translation>
+        <translation>версия</translation>
     </message>
     <message>
         <source>license</source>
-        <translation>Lizenz</translation>
+        <translation>лицензия</translation>
     </message>
     <message>
         <source>url</source>
-        <translation>URL</translation>
+        <translation>url</translation>
     </message>
 </context>
 </TS>
