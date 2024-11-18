@@ -45,6 +45,7 @@ CoverBackground {
 
         anchors.fill: parent
         wrapMode: PagedView.NoWrap
+        moveDuration: 400
 
         model: appModel.imageList
 

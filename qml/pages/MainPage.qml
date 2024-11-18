@@ -146,8 +146,9 @@ Page {
             model: appModel.imageList
             visible: !appView.imageListEmpty
 
-            dragThreshold: Theme.startDragDistance / 3
-            moveDragThreshold: Theme.startDragDistance / 3
+            dragThreshold: Theme.startDragDistance / 4
+            moveDragThreshold: Theme.startDragDistance / 4
+            moveDuration: 400
 
             delegate: Component {
                 id: delegateComponent
