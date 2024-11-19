@@ -151,12 +151,11 @@ install(FILES icons/172x172/harbour-raw-view.png
 )
 
 # Get the other files reachable from the project tree in Qt Creator
-FILE(GLOB TsFiles "translations/*.ts")
 add_custom_target(distfiles
     SOURCES
         harbour-raw-view.desktop
         ${QML_FILES}
-        ${TsFiles}
+        ${TS_FILES}
 #        rpm/harbour-raw-view.changes.in
 #        rpm/harbour-raw-view.changes.run.in
         rpm/harbour-raw-view.spec
