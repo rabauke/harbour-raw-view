@@ -19,75 +19,81 @@ Image::Image(const QFileInfo& file_info) : m_file_info{file_info} {
 }
 
 
-QString Image::file_name() {
+const QFileInfo& Image::file_info() const {
+  return m_file_info;
+}
+
+
+QString Image::file_name() const {
   return m_file_info.fileName();
 }
 
 
-double Image::file_size() {
+double Image::file_size() const {
   return m_file_info.size();
 }
 
 
-double Image::image_width() {
+double Image::image_width() const {
   return m_image_width;
 }
 
 
-double Image::image_height() {
+double Image::image_height() const {
   return m_image_height;
 }
 
 
-QString Image::camera_maker() {
+QString Image::camera_maker() const {
   load_metadata();
   return m_camera_maker;
 }
 
 
-QString Image::camera_model() {
+QString Image::camera_model() const {
   load_metadata();
   return m_camera_model;
 }
 
 
-QString Image::lens_maker() {
+QString Image::lens_maker() const {
   load_metadata();
   return m_lens_maker;
 }
 
 
-QString Image::lens_model() {
+QString Image::lens_model() const {
   load_metadata();
   return m_lens;
 }
 
 
-double Image::focal_length() {
+double Image::focal_length() const {
   load_metadata();
   return m_focal_length;
 }
 
 
-double Image::aperture() {
+double Image::aperture() const {
   load_metadata();
   return m_aperture;
 }
 
 
-double Image::shutter_speed() {
+double Image::shutter_speed() const {
   load_metadata();
   return m_shutter_speed;
 }
 
 
-double Image::iso() {
+double Image::iso() const {
   load_metadata();
   return m_iso;
 }
 
 
-QDateTime Image::date_time_original() {
+QDateTime Image::date_time_original() const {
+  load_metadata();
   return m_date_time_original;
 }
 
@@ -156,7 +162,7 @@ void Image::load_nonraw(QImage& image) {
 }
 
 
-void Image::load_metadata() {
+void Image::load_metadata() const {
   if (not m_metadata_loaded) {
     m_metadata_loaded = true;
     try {
@@ -171,7 +177,7 @@ void Image::load_metadata() {
 }
 
 
-void Image::load_metadata_raw() {
+void Image::load_metadata_raw() const {
   LibRaw lib_raw;
   if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
       LIBRAW_SUCCESS)
@@ -205,7 +211,7 @@ void Image::load_metadata_raw() {
 }
 
 
-void Image::load_metadata_nonraw() {
+void Image::load_metadata_nonraw() const {
   auto image{Exiv2::ImageFactory::open(m_file_info.absoluteFilePath().toLocal8Bit().data())};
   image->readMetadata();
   auto& exif_data{image->exifData()};

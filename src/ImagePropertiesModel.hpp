@@ -39,19 +39,20 @@ public:
   Q_PROPERTY(QDateTime dateTimeOriginal READ date_time_original NOTIFY image_properties_changed)
   Q_PROPERTY(QImage preview READ preview NOTIFY image_properties_changed)
 
-  [[nodiscard]] QString file_name();
-  [[nodiscard]] double file_size();
-  [[nodiscard]] double image_width();
-  [[nodiscard]] double image_height();
-  [[nodiscard]] QString camera_maker();
-  [[nodiscard]] QString camera_model();
-  [[nodiscard]] QString lens_maker();
-  [[nodiscard]] QString lens_model();
-  [[nodiscard]] double focal_length();
-  [[nodiscard]] double aperture();
-  [[nodiscard]] double shutter_speed();
-  [[nodiscard]] double iso();
-  [[nodiscard]] QDateTime date_time_original();
+  [[nodiscard]] const QFileInfo &file_info() const;
+  [[nodiscard]] QString file_name() const;
+  [[nodiscard]] double file_size() const;
+  [[nodiscard]] double image_width() const;
+  [[nodiscard]] double image_height() const;
+  [[nodiscard]] QString camera_maker() const;
+  [[nodiscard]] QString camera_model() const;
+  [[nodiscard]] QString lens_maker() const;
+  [[nodiscard]] QString lens_model() const;
+  [[nodiscard]] double focal_length() const;
+  [[nodiscard]] double aperture() const;
+  [[nodiscard]] double shutter_speed() const;
+  [[nodiscard]] double iso() const;
+  [[nodiscard]] QDateTime date_time_original() const;
   [[nodiscard]] QImage preview();
 
 signals:

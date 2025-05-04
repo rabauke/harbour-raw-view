@@ -1,5 +1,22 @@
 #include "ImageListModel.hpp"
 
+
+static bool compare_image_properties_models(
+    const QSharedPointer<ImagePropertiesModel> &image_properties_model_1,
+    const QSharedPointer<ImagePropertiesModel> &image_properties_model_2) {
+  const auto time_1{image_properties_model_1->date_time_original()};
+  const auto time_2{image_properties_model_2->date_time_original()};
+  if (time_1 < time_2)
+    return true;
+  else if (time_1 == time_2) {
+    const auto file_name_1{image_properties_model_1->file_name()};
+    const auto file_name_2{image_properties_model_2->file_name()};
+    return file_name_1.localeAwareCompare(file_name_2) < 0;
+  }
+  return false;
+}
+
+
 ImageListModel::ImageListModel(QObject *other) : QAbstractListModel(other) {
 }
 
@@ -85,6 +102,44 @@ void ImageListModel::set_file_names(const QFileInfoList &file_infos) {
     for (const auto &file_info : file_infos)
       m_images.push_back(
           QSharedPointer<ImagePropertiesModel>{new ImagePropertiesModel(file_info)});
+    std::stable_sort(m_images.begin(), m_images.end(), compare_image_properties_models);
     endInsertRows();
+  }
+}
+
+
+void ImageListModel::update_file_names(const QFileInfoList &file_infos) {
+  if (not m_images.empty()) {
+    QList<int> removed_images;
+    for (int i{0}; i < m_images.count(); ++i)
+      if (not file_infos.contains(m_images[i]->file_info()))
+        removed_images.push_back(i);
+    int num_removed{0};
+    for (int i{0}; i < removed_images.count(); ++i) {
+      const int index{removed_images[i] - num_removed};
+      beginRemoveRows(QModelIndex(), index, index);
+      m_images.removeAt(index);
+      endRemoveRows();
+      ++num_removed;
+    }
+  }
+  if (not file_infos.empty()) {
+    for (const auto &file_info : file_infos) {
+      const auto iter{
+          std::find_if(m_images.begin(), m_images.end(), [&file_info](const auto &image) {
+            return image->file_info().absoluteFilePath() == file_info.absoluteFilePath();
+          })};
+      if (iter == m_images.end()) {
+        QSharedPointer<ImagePropertiesModel> image_properties_model{
+            new ImagePropertiesModel(file_info)};
+        const auto insertion_pos_iter{std::upper_bound(m_images.begin(), m_images.end(),
+                                                       image_properties_model,
+                                                       compare_image_properties_models)};
+        const auto insertion_pos{static_cast<int>(insertion_pos_iter - m_images.begin())};
+        beginInsertRows(QModelIndex(), insertion_pos, insertion_pos);
+        m_images.insert(insertion_pos_iter, image_properties_model);
+        endInsertRows();
+      }
+    }
   }
 }
