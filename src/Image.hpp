@@ -33,7 +33,7 @@ enum class ImageOrientation {
 class Image {
 public:
   Image() = default;
-  Image(const QFileInfo &file_info);
+  explicit Image(const QFileInfo &file_info);
   const QFileInfo &file_info() const;
   QString file_name() const;
   double file_size() const;
@@ -55,25 +55,25 @@ public:
 private:
   void load_raw(QImage &image);
   void load_nonraw(QImage &image);
-  void load_metadata() const;
-  void load_metadata_raw() const;
-  void load_metadata_nonraw() const;
+  void load_metadata();
+  void load_metadata_raw();
+  void load_metadata_nonraw();
 
   static const QStringList &supported_raw_file_extensions();
   static const QStringList &supported_nonraw_file_extensions();
 
   QFileInfo m_file_info;
-  mutable double m_image_width{0};
-  mutable double m_image_height{0};
-  mutable bool m_metadata_loaded{false};
-  mutable QString m_camera_maker;
-  mutable QString m_camera_model;
-  mutable QString m_lens_maker;
-  mutable QString m_lens;
-  mutable double m_focal_length{0};
-  mutable double m_aperture{0};
-  mutable double m_shutter_speed{0};
-  mutable double m_iso{0};
-  mutable QDateTime m_date_time_original;
-  mutable ImageOrientation m_image_orientation{ImageOrientation::unknown};
+  double m_image_width{0};
+  double m_image_height{0};
+  bool m_metadata_loaded{false};
+  QString m_camera_maker;
+  QString m_camera_model;
+  QString m_lens_maker;
+  QString m_lens;
+  double m_focal_length{0};
+  double m_aperture{0};
+  double m_shutter_speed{0};
+  double m_iso{0};
+  QDateTime m_date_time_original;
+  ImageOrientation m_image_orientation{ImageOrientation::unknown};
 };

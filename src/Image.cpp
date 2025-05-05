@@ -16,6 +16,7 @@ static QStringList to_string_list(const QByteArrayList& list) {
 
 
 Image::Image(const QFileInfo& file_info) : m_file_info{file_info} {
+  load_metadata();
 }
 
 
@@ -45,61 +46,51 @@ double Image::image_height() const {
 
 
 QString Image::camera_maker() const {
-  load_metadata();
   return m_camera_maker;
 }
 
 
 QString Image::camera_model() const {
-  load_metadata();
   return m_camera_model;
 }
 
 
 QString Image::lens_maker() const {
-  load_metadata();
   return m_lens_maker;
 }
 
 
 QString Image::lens_model() const {
-  load_metadata();
   return m_lens;
 }
 
 
 double Image::focal_length() const {
-  load_metadata();
   return m_focal_length;
 }
 
 
 double Image::aperture() const {
-  load_metadata();
   return m_aperture;
 }
 
 
 double Image::shutter_speed() const {
-  load_metadata();
   return m_shutter_speed;
 }
 
 
 double Image::iso() const {
-  load_metadata();
   return m_iso;
 }
 
 
 QDateTime Image::date_time_original() const {
-  load_metadata();
   return m_date_time_original;
 }
 
 
 QImage Image::preview() {
-  load_metadata();
   QImage image;
   try {
     if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
@@ -162,7 +153,7 @@ void Image::load_nonraw(QImage& image) {
 }
 
 
-void Image::load_metadata() const {
+void Image::load_metadata() {
   if (not m_metadata_loaded) {
     m_metadata_loaded = true;
     try {
@@ -177,7 +168,7 @@ void Image::load_metadata() const {
 }
 
 
-void Image::load_metadata_raw() const {
+void Image::load_metadata_raw() {
   LibRaw lib_raw;
   if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
       LIBRAW_SUCCESS)
@@ -211,7 +202,7 @@ void Image::load_metadata_raw() const {
 }
 
 
-void Image::load_metadata_nonraw() const {
+void Image::load_metadata_nonraw() {
   auto image{Exiv2::ImageFactory::open(m_file_info.absoluteFilePath().toLocal8Bit().data())};
   image->readMetadata();
   auto& exif_data{image->exifData()};
