@@ -18,7 +18,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/external)
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/translations)
 
 add_custom_target(extract_libraw
-    COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/LibRaw-0.21.3.tar.gz
+    COMMAND ${CMAKE_COMMAND} -E tar xzf ${CMAKE_SOURCE_DIR}/external/LibRaw-0.21.4.tar.gz
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external)
 
 add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/libraw/libraw.h
@@ -26,11 +26,11 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/external/include/libraw/libraw.h
     COMMAND ./configure --disable-openmp --prefix=${CMAKE_BINARY_DIR}/external
     COMMAND make
     COMMAND make install
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.3
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.4
 )
 
 set_target_properties(extract_libraw PROPERTIES ADDITIONAL_CLEAN_FILES
-    ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.3
+    ${CMAKE_BINARY_DIR}/external/LibRaw-0.21.4
     ${CMAKE_BINARY_DIR}/external/bin
     ${CMAKE_BINARY_DIR}/external/include
     ${CMAKE_BINARY_DIR}/external/lib
