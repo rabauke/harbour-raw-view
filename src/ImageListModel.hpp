@@ -24,7 +24,6 @@ public:
 #endif
 
   void set_file_names(const QFileInfoList &file_paths);
-  void update_file_names(const QFileInfoList &file_paths);
 
   [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
   [[nodiscard]] QVariant data(const QModelIndex &index, int role) const override;

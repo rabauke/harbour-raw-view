@@ -31,6 +31,7 @@ public:
   Q_PROPERTY(ImageListModel* imageList READ get_image_list NOTIFY image_list_changed)
   Q_PROPERTY(bool showImageInfo READ get_show_image_info WRITE set_show_image_info NOTIFY
                  show_image_info_changed)
+  Q_INVOKABLE void loadImages(const QUrl& image_folder);
 
 signals:
   void image_folder_changed();
@@ -45,8 +46,6 @@ private:
 
   [[nodiscard]] bool get_show_image_info() const;
   void set_show_image_info(bool);
-
-  void reset_image_list_model();
 
   QString m_version{QString::fromStdString(project_version)};
   QUrl m_image_folder;

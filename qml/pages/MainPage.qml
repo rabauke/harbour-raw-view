@@ -110,7 +110,10 @@ Page {
                 showNavigationIndicator: true
                 showSystemFiles: true
                 dialogTitle: qsTr('Show images in')
-                onSelectedPathChanged: appModel.imageFolder = selectedPath
+                onSelectedPathChanged: {
+                    appModel.imageFolder = selectedPath
+                    appModel.loadImages(appModel.imageFolder)
+                }
             }
         }
 
