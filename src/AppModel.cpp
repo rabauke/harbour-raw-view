@@ -42,8 +42,6 @@ AppModel::AppModel(QObject* parent)
     set_show_image_info(show_image_info.toBool());
   else
     set_show_image_info(false);
-  connect(&m_file_system_watcher, &QFileSystemWatcher::directoryChanged, this,
-          &AppModel::update_image_list_model);
 }
 
 
@@ -66,9 +64,6 @@ QUrl AppModel::get_image_folder() const {
 void AppModel::set_image_folder(const QUrl& new_image_folder) {
   if (new_image_folder != m_image_folder) {
     m_image_folder = new_image_folder;
-    m_file_system_watcher.removePaths(m_file_system_watcher.files());
-    m_file_system_watcher.removePaths(m_file_system_watcher.directories());
-    m_file_system_watcher.addPath(new_image_folder.toLocalFile());
     emit image_folder_changed();
     reset_image_list_model();
   }
@@ -89,19 +84,6 @@ void AppModel::reset_image_list_model() {
       image_files.append(file.absoluteFilePath());
   }
   m_image_list_model->set_file_names(image_files);
-  emit image_list_changed();
-}
-
-
-void AppModel::update_image_list_model() {
-  QDir dir{m_image_folder.toLocalFile()};
-  auto file_list{dir.entryInfoList(QDir::Files)};
-  QFileInfoList image_files;
-  for (const auto& file : file_list) {
-    if (Image::supported_file_extensions().contains(file.suffix(), Qt::CaseInsensitive))
-      image_files.append(file.absoluteFilePath());
-  }
-  m_image_list_model->update_file_names(image_files);
   emit image_list_changed();
 }
 

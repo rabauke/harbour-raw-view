@@ -47,11 +47,9 @@ private:
   void set_show_image_info(bool);
 
   void reset_image_list_model();
-  void update_image_list_model();
 
   QString m_version{QString::fromStdString(project_version)};
   QUrl m_image_folder;
   QScopedPointer<ImageListModel> m_image_list_model;
   bool m_show_image_info;
-  QFileSystemWatcher m_file_system_watcher;
 };
