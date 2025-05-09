@@ -8,6 +8,11 @@ ApplicationWindow {
 
     AppModel {
         id: appModel
+
+        onReadingImagesFinished: {
+            pageStack.clear()
+            pageStack.push(Qt.resolvedUrl('pages/MainPage.qml'))
+        }
     }
 
     property int imageListCurrentIndex: 0
@@ -15,7 +20,7 @@ ApplicationWindow {
     property bool imageListEmpty: appModel.imageList.rowCount() === 0
 
     initialPage: Component {
-        MainPage {}
+        LoadImages {}
     }
     cover: Qt.resolvedUrl('cover/CoverPage.qml')
     allowedOrientations: defaultAllowedOrientations

@@ -1,4 +1,5 @@
 #include "ImageListModel.hpp"
+#include <QCoreApplication>
 
 
 static bool compare_image_properties_models(
@@ -91,18 +92,52 @@ QHash<int, QByteArray> ImageListModel::roleNames() const {
 }
 
 
-void ImageListModel::set_file_names(const QFileInfoList &file_infos) {
+void ImageListModel::load_image_meta_data_async(const QFileInfoList &file_infos) {
   if (not m_images.empty()) {
     beginRemoveRows(QModelIndex(), 0, m_images.count() - 1);
     m_images.clear();
     endRemoveRows();
   }
-  if (not file_infos.empty()) {
-    beginInsertRows(QModelIndex(), 0, file_infos.count() - 1);
-    for (const auto &file_info : file_infos)
-      m_images.push_back(
-          QSharedPointer<ImagePropertiesModel>{new ImagePropertiesModel(file_info)});
-    std::stable_sort(m_images.begin(), m_images.end(), compare_image_properties_models);
+  beginInsertRows(QModelIndex(), 0, file_infos.count() - 1);
+  QThread *thread{new QThread};
+  ImageListLoader *worker{new ImageListLoader(*this, file_infos)};
+  worker->moveToThread(thread);
+  connect(worker, &ImageListLoader::error, this, [this]() { emit readingError(); });
+  connect(thread, &QThread::started, worker, &ImageListLoader::load);
+  connect(worker, &ImageListLoader::finished, thread, &QThread::quit);
+  connect(worker, &ImageListLoader::finished, thread, &QThread::quit);
+  connect(worker, &ImageListLoader::finished, worker, &ImageListLoader::deleteLater);
+  connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+  connect(thread, &QThread::finished, this, [this]() {
     endInsertRows();
+    emit readingFinished();
+  });
+  thread->start();
+}
+
+
+void ImageListModel::load_image_meta_data_async_impl(const QFileInfoList &file_infos) {
+  auto main_thread{QCoreApplication::instance()->thread()};
+  for (const auto &file_info : file_infos)
+    m_images.push_back(
+        QSharedPointer<ImagePropertiesModel>{new ImagePropertiesModel(file_info)});
+  std::stable_sort(m_images.begin(), m_images.end(), compare_image_properties_models);
+  for (const auto &image : m_images)
+    image->moveToThread(main_thread);
+}
+
+
+ImageListLoader::ImageListLoader(ImageListModel &image_list_model,
+                                 const QFileInfoList &file_paths)
+    : m_image_list_model{image_list_model}, m_file_paths{file_paths} {
+}
+
+
+void ImageListLoader::load() {
+  try {
+    m_image_list_model.load_image_meta_data_async_impl(m_file_paths);
+    emit finished();
+  } catch (...) {
+    emit error("unable to read images");
   }
 }

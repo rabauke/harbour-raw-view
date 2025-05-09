@@ -42,7 +42,15 @@ AppModel::AppModel(QObject* parent)
     set_show_image_info(show_image_info.toBool());
   else
     set_show_image_info(false);
-  loadImages(get_image_folder());
+
+  connect(m_image_list_model.data(), &ImageListModel::readingFinished, this, [this]() {
+    emit image_list_changed();
+    emit readingImagesFinished();
+  });
+  connect(m_image_list_model.data(), &ImageListModel::readingError, this, [this]() {
+    emit image_list_changed();
+    emit readingImagesFailed();
+  });
 }
 
 
@@ -65,9 +73,7 @@ void AppModel::loadImages(const QUrl &image_folder) {
     if (Image::supported_file_extensions().contains(file.suffix(), Qt::CaseInsensitive))
       image_files.append(file.absoluteFilePath());
   }
-  m_image_list_model->set_file_names(image_files);
-  emit image_list_changed();
-
+  m_image_list_model->load_image_meta_data_async(image_files);
 }
 
 

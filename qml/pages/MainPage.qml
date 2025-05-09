@@ -112,7 +112,7 @@ Page {
                 dialogTitle: qsTr('Show images in')
                 onSelectedPathChanged: {
                     appModel.imageFolder = selectedPath
-                    appModel.loadImages(appModel.imageFolder)
+                    pageStack.replace('LoadImages.qml')
                 }
             }
         }

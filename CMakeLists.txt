@@ -56,6 +56,7 @@ set(CMAKE_INSTALL_RPATH /usr/share/harbour-raw-view/lib)
 set(QML_FILES
     qml/harbour-raw-view.qml
     qml/pages/MainPage.qml
+    qml/pages/LoadImages.qml
     qml/pages/About.qml
     qml/pages/Metadata.qml
     qml/cover/CoverPage.qml

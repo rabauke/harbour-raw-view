@@ -37,6 +37,8 @@ signals:
   void image_folder_changed();
   void image_list_changed();
   void show_image_info_changed();
+  void readingImagesFinished();
+  void readingImagesFailed();
 
 private:
   [[nodiscard]] QUrl get_image_folder() const;
