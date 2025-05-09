@@ -60,7 +60,7 @@ Page {
                 visible: !appView.imageListEmpty
 
                 delegate: ListItem {
-                    contentHeight: Theme.itemSizeSmall
+                    contentHeight: Theme.itemSizeMedium
 
                     highlighted: index === view.currentIndex
 
@@ -73,16 +73,20 @@ Page {
                             }
                         }
                     }
-                    Item {
-                        id: item
-                        height: Theme.itemSizeSmall
-                        width: parent.width
+                    Column {
+                        padding: Theme.paddingMedium
+                        leftPadding: Theme.horizontalPageMargin
+                        rightPadding: Theme.horizontalPageMargin
+                        anchors.fill: parent
                         Label {
-                            anchors.verticalCenter: item.verticalCenter
-                            x: Theme.horizontalPageMargin
-                            width: parent.width - 2 * x
                             truncationMode: TruncationMode.Fade
                             text: fileName
+                        }
+                        Label {
+                            truncationMode: TruncationMode.Fade
+                            text: dateTimeOriginal.toLocaleString(Qt.locale())
+                            font.pixelSize: Theme.fontSizeSmall
+                            color: Theme.secondaryColor
                         }
                     }
                 }
