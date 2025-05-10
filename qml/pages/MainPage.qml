@@ -60,22 +60,29 @@ Page {
                 visible: !appView.imageListEmpty
 
                 delegate: ListItem {
-                    contentHeight: Theme.itemSizeMedium
+                    id: listItem
+                    contentHeight: Theme.itemSizeLarge
 
                     highlighted: index === view.currentIndex
 
-                    menu: ContextMenu {
-                        MenuItem {
-                            text: qsTr('Show image')
-                            onClicked: {
-                                appView.imageListCurrentIndex = index
-                                pageStack.pop()
-                            }
+                    MouseArea {
+                        width: listItem.contentWidth
+                        height: listItem.contentHeight
+                        onDoubleClicked: {
+                            appView.imageListCurrentIndex = index
+                            pageStack.pop()
                         }
+                    }
+                    ImageItem {
+                        width: listItem.contentHeight
+                        height: listItem.contentHeight
+                        fillMode: ImageItem.PreserveAspectCrop
+                        image: preview
+                        scale: 1
                     }
                     Column {
                         padding: Theme.paddingMedium
-                        leftPadding: Theme.horizontalPageMargin
+                        leftPadding: Theme.horizontalPageMargin + listItem.contentHeight
                         rightPadding: Theme.horizontalPageMargin
                         anchors.fill: parent
                         Label {
