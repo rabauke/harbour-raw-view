@@ -77,7 +77,7 @@ Page {
                         width: listItem.contentHeight
                         height: listItem.contentHeight
                         fillMode: ImageItem.PreserveAspectCrop
-                        image: preview
+                        image: thumbNail
                         scale: 1
                     }
                     Column {

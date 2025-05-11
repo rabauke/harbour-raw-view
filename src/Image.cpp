@@ -106,7 +106,16 @@ QImage Image::preview() {
       image = image.transformed(QTransform().rotate(270));
   } catch (...) {
   }
+  if (m_thumb_nail.isNull())
+    m_thumb_nail = create_thumb_nail(image);
   return image;
+}
+
+
+QImage Image::thumb_nail() {
+  if (m_thumb_nail.isNull())
+    m_thumb_nail = create_thumb_nail(preview());
+  return m_thumb_nail;
 }
 
 
@@ -124,6 +133,12 @@ const QStringList& Image::supported_nonraw_file_extensions() {
   static const QStringList extensions{to_string_list(QImageReader::supportedImageFormats())};
   return extensions;
 }
+
+
+QImage Image::create_thumb_nail(const QImage& image) {
+  return image.scaled(128, 128, Qt::KeepAspectRatioByExpanding);
+}
+
 
 
 const QStringList& Image::supported_file_extensions() {

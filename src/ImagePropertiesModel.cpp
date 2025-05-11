@@ -83,3 +83,8 @@ QDateTime ImagePropertiesModel::date_time_original() const {
 QImage ImagePropertiesModel::preview() {
   return m_image.preview();
 }
+
+
+QImage ImagePropertiesModel::thumb_nail() {
+  return m_image.thumb_nail();
+}

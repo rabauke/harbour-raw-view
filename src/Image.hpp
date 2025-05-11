@@ -49,6 +49,7 @@ public:
   double iso() const;
   QDateTime date_time_original() const;
   QImage preview();
+  QImage thumb_nail();
 
   static const QStringList &supported_file_extensions();
 
@@ -61,6 +62,7 @@ private:
 
   static const QStringList &supported_raw_file_extensions();
   static const QStringList &supported_nonraw_file_extensions();
+  static QImage create_thumb_nail(const QImage &image);
 
   QFileInfo m_file_info;
   double m_image_width{0};
@@ -76,4 +78,5 @@ private:
   double m_iso{0};
   QDateTime m_date_time_original;
   ImageOrientation m_image_orientation{ImageOrientation::unknown};
+  QImage m_thumb_nail;
 };

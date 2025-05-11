@@ -60,6 +60,8 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
         return image->date_time_original();
       case preview:
         return image->preview();
+      case thumb_nail:
+        return image->thumb_nail();
     }
   }
   return {};
@@ -87,7 +89,8 @@ QHash<int, QByteArray> ImageListModel::roleNames() const {
                                                  {shutter_speed, "shutterSpeed"},
                                                  {iso, "iso"},
                                                  {date_time_original, "dateTimeOriginal"},
-                                                 {preview, "preview"}};
+                                                 {preview, "preview"},
+                                                 {thumb_nail, "thumbNail"}};
   return role_names;
 }
 

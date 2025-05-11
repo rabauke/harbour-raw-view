@@ -38,6 +38,7 @@ public:
   Q_PROPERTY(double iso READ iso NOTIFY image_properties_changed)
   Q_PROPERTY(QDateTime dateTimeOriginal READ date_time_original NOTIFY image_properties_changed)
   Q_PROPERTY(QImage preview READ preview NOTIFY image_properties_changed)
+  Q_PROPERTY(QImage thumbNail READ thumb_nail NOTIFY image_properties_changed)
 
   [[nodiscard]] const QFileInfo &file_info() const;
   [[nodiscard]] QString file_name() const;
@@ -54,6 +55,7 @@ public:
   [[nodiscard]] double iso() const;
   [[nodiscard]] QDateTime date_time_original() const;
   [[nodiscard]] QImage preview();
+  [[nodiscard]] QImage thumb_nail();
 
 signals:
   void image_properties_changed();
