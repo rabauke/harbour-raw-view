@@ -90,8 +90,8 @@ QDateTime Image::date_time_original() const {
 }
 
 
-QImage Image::preview() {
-  QImage image;
+QPixmap Image::preview() {
+  QPixmap image;
   try {
     if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
       load_raw(image);
@@ -112,7 +112,7 @@ QImage Image::preview() {
 }
 
 
-QImage Image::thumb_nail() {
+QPixmap Image::thumb_nail() {
   if (m_thumb_nail.isNull())
     m_thumb_nail = create_thumb_nail(preview());
   return m_thumb_nail;
@@ -135,7 +135,7 @@ const QStringList& Image::supported_nonraw_file_extensions() {
 }
 
 
-QImage Image::create_thumb_nail(const QImage& image) {
+QPixmap Image::create_thumb_nail(const QPixmap& image) {
   return image.scaled(128, 128, Qt::KeepAspectRatioByExpanding);
 }
 
@@ -148,7 +148,7 @@ const QStringList& Image::supported_file_extensions() {
 }
 
 
-void Image::load_raw(QImage& image) {
+void Image::load_raw(QPixmap& image) {
   LibRaw lib_raw;
   if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
       LIBRAW_SUCCESS)
@@ -162,7 +162,7 @@ void Image::load_raw(QImage& image) {
 }
 
 
-void Image::load_nonraw(QImage& image) {
+void Image::load_nonraw(QPixmap& image) {
   if (not image.load(m_file_info.absoluteFilePath()))
     throw ImageException("unable to load image");
 }

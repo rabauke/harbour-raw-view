@@ -2,16 +2,15 @@
 
 
 ImageItem::ImageItem(QQuickItem *parent) : QQuickPaintedItem{parent} {
-  m_current_image = QImage(1, 1, QImage::Format::Format_RGB888);
 }
 
 
-QImage ImageItem::get_image() const {
+QPixmap ImageItem::get_image() const {
   return m_current_image;
 }
 
 
-void ImageItem::set_image(const QImage &image) {
+void ImageItem::set_image(const QPixmap &image) {
   m_current_image = image;
   update();
   emit imageChanged();
@@ -96,5 +95,5 @@ void ImageItem::paint(QPainter *painter) {
     case Alignment::AlignCenter:
       drawing_area.translate(-(m_scale - 1) * (m_scale_center - screen_center));
   }
-  painter->drawImage(drawing_area, m_current_image);
+  painter->drawPixmap(drawing_area.toRect(), m_current_image);
 }

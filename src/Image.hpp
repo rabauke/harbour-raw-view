@@ -4,7 +4,7 @@
 #include <QString>
 #include <QStringList>
 #include <QFileInfo>
-#include <QImage>
+#include <QPixmap>
 #include <QDateTime>
 
 
@@ -48,21 +48,21 @@ public:
   double shutter_speed() const;
   double iso() const;
   QDateTime date_time_original() const;
-  QImage preview();
-  QImage thumb_nail();
+  QPixmap preview();
+  QPixmap thumb_nail();
 
   static const QStringList &supported_file_extensions();
 
 private:
-  void load_raw(QImage &image);
-  void load_nonraw(QImage &image);
+  void load_raw(QPixmap &image);
+  void load_nonraw(QPixmap &image);
   void load_metadata();
   void load_metadata_raw();
   void load_metadata_nonraw();
 
   static const QStringList &supported_raw_file_extensions();
   static const QStringList &supported_nonraw_file_extensions();
-  static QImage create_thumb_nail(const QImage &image);
+  static QPixmap create_thumb_nail(const QPixmap &image);
 
   QFileInfo m_file_info;
   double m_image_width{0};
@@ -78,5 +78,5 @@ private:
   double m_iso{0};
   QDateTime m_date_time_original;
   ImageOrientation m_image_orientation{ImageOrientation::unknown};
-  QImage m_thumb_nail;
+  QPixmap m_thumb_nail;
 };
