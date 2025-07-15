@@ -62,6 +62,8 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
         return image->preview();
       case thumb_nail:
         return image->thumb_nail();
+      case absolute_file_path:
+        return image->absolute_file_path();
     }
   }
   return {};
@@ -90,7 +92,8 @@ QHash<int, QByteArray> ImageListModel::roleNames() const {
                                                  {iso, "iso"},
                                                  {date_time_original, "dateTimeOriginal"},
                                                  {preview, "preview"},
-                                                 {thumb_nail, "thumbNail"}};
+                                                 {thumb_nail, "thumbNail"},
+                                                 {absolute_file_path, "absoluteFilePath"}};
   return role_names;
 }
 

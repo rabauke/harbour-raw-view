@@ -119,6 +119,11 @@ QPixmap Image::thumb_nail() {
 }
 
 
+QString Image::absolute_file_path() {
+  return m_file_info.absoluteFilePath();
+}
+
+
 const QStringList& Image::supported_raw_file_extensions() {
   static const QStringList extensions{
       "3fr", "ari", "arw", "bay", "braw", "crw", "cr2", "cr3", "cap", "data", "dcs",

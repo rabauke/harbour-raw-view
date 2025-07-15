@@ -50,6 +50,7 @@ public:
   QDateTime date_time_original() const;
   QPixmap preview();
   QPixmap thumb_nail();
+  QString absolute_file_path();
 
   static const QStringList &supported_file_extensions();
 

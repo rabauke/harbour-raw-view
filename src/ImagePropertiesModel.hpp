@@ -39,6 +39,7 @@ public:
   Q_PROPERTY(QDateTime dateTimeOriginal READ date_time_original NOTIFY image_properties_changed)
   Q_PROPERTY(QPixmap preview READ preview NOTIFY image_properties_changed)
   Q_PROPERTY(QPixmap thumbNail READ thumb_nail NOTIFY image_properties_changed)
+  Q_PROPERTY(QString absoluteFilePath READ absolute_file_path NOTIFY image_properties_changed)
 
   [[nodiscard]] const QFileInfo &file_info() const;
   [[nodiscard]] QString file_name() const;
@@ -56,6 +57,7 @@ public:
   [[nodiscard]] QDateTime date_time_original() const;
   [[nodiscard]] QPixmap preview();
   [[nodiscard]] QPixmap thumb_nail();
+  [[nodiscard]] QString absolute_file_path();
 
 signals:
   void image_properties_changed();

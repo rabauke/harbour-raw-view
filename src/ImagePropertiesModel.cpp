@@ -88,3 +88,8 @@ QPixmap ImagePropertiesModel::preview() {
 QPixmap ImagePropertiesModel::thumb_nail() {
   return m_image.thumb_nail();
 }
+
+
+QString ImagePropertiesModel::absolute_file_path() {
+  return m_image.absolute_file_path();
+}

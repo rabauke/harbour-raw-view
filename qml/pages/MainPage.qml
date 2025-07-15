@@ -2,6 +2,7 @@ import QtQuick 2.6
 import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
+import Sailfish.Share 1.0
 import RawViewQuick 1.0
 
 Page {
@@ -174,6 +175,14 @@ Page {
                             width: view.width
                             height: view.height
 
+                            ShareAction {
+                                id: shareAction
+                                mimeType: 'image/*'
+                                resources: [
+                                    absoluteFilePath
+                                 ]
+                             }
+
                             ImageItem {
                                 anchors.fill: parent
                                 image: preview
@@ -223,6 +232,16 @@ Page {
                                 enabled: appModel.showImageInfo
                                 onClicked: pageStack.push(Qt.resolvedUrl(
                                                               'Metadata.qml'))
+                            }
+                            IconButton {
+                                anchors.top: parent.top
+                                anchors.right: parent.right
+                                anchors.topMargin: Theme.paddingLarge
+                                anchors.rightMargin: Theme.paddingMedium
+                                icon.source: 'image://theme/icon-m-share'
+                                visible: appModel.showImageInfo
+                                enabled: appModel.showImageInfo
+                                onClicked: shareAction.trigger()
                             }
                             IconButton {
                                 anchors.verticalCenter: parent.verticalCenter

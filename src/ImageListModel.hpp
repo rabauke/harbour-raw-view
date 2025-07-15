@@ -56,6 +56,7 @@ private:
   static constexpr int date_time_original = Qt::UserRole + 12;
   static constexpr int preview = Qt::UserRole + 13;
   static constexpr int thumb_nail = Qt::UserRole + 14;
+  static constexpr int absolute_file_path = Qt::UserRole + 15;
 
   mutable QList<QSharedPointer<ImagePropertiesModel>> m_images;
 };
