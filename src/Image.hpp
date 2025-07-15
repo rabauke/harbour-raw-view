@@ -6,6 +6,7 @@
 #include <QFileInfo>
 #include <QPixmap>
 #include <QDateTime>
+#include <QMap>
 
 
 class ImageException : public std::runtime_error {
@@ -80,4 +81,6 @@ private:
   QDateTime m_date_time_original;
   ImageOrientation m_image_orientation{ImageOrientation::unknown};
   QPixmap m_thumb_nail;
+
+  static QMap<QString, QPixmap> s_preview_cache;
 };

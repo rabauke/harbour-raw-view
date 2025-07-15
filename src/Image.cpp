@@ -1,10 +1,13 @@
 #include "Image.hpp"
 #include <stdexcept>
+#include <random>
 #include <libraw/libraw.h>
 #include <exiv2/exiv2.hpp>
+#include <sys/sysinfo.h>
 #include <QFileInfo>
 #include <QTimeZone>
 #include <QImageReader>
+#include <QDebug>
 
 
 static QStringList to_string_list(const QByteArrayList& list) {
@@ -13,6 +16,28 @@ static QStringList to_string_list(const QByteArrayList& list) {
     new_list.push_back(QString::fromLatin1(item));
   return new_list;
 }
+
+
+static int random_int(int bound) {
+  static std::mt19937_64 rand_engine;
+
+  if (bound <= 1)
+    return 0;
+  std::uniform_int_distribution<int> distribution(0, bound - 1);
+  return distribution(rand_engine);
+}
+
+
+static qint64 mem_available() {
+  struct sysinfo info {};
+  if (sysinfo(&info) != 0)
+    return 0;
+  const auto totalFreeMemory{info.freeram + info.bufferram};
+  return static_cast<qint64>(totalFreeMemory * info.mem_unit);
+}
+
+
+QMap<QString, QPixmap> Image::s_preview_cache;
 
 
 Image::Image(const QFileInfo& file_info) : m_file_info{file_info} {
@@ -91,6 +116,9 @@ QDateTime Image::date_time_original() const {
 
 
 QPixmap Image::preview() {
+  if (s_preview_cache.contains(m_file_info.absoluteFilePath()))
+    return s_preview_cache[m_file_info.absoluteFilePath()];
+
   QPixmap image;
   try {
     if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
@@ -108,6 +136,17 @@ QPixmap Image::preview() {
   }
   if (m_thumb_nail.isNull())
     m_thumb_nail = create_thumb_nail(image);
+  int freed_images{0};
+  while ((mem_available() < 256ll * 1024 * 1024 and freed_images < 4 and s_preview_cache.size() > 4)
+         or s_preview_cache.size() > 64) {
+    qDebug() << "freeing memory: " << mem_available();
+    auto iter{s_preview_cache.keyBegin()};
+    std::advance(iter, random_int(s_preview_cache.size()));
+    s_preview_cache.remove(*iter);
+    ++freed_images;
+  }
+  s_preview_cache.insert(m_file_info.absoluteFilePath(), image);
+  qDebug() << "free memory: " << mem_available() << " cache size: " << s_preview_cache.size();
   return image;
 }
 
