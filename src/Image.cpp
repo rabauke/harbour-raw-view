@@ -7,6 +7,7 @@
 #include <QFileInfo>
 #include <QTimeZone>
 #include <QImageReader>
+#include <QDir>
 #include <QDebug>
 
 
@@ -38,6 +39,7 @@ static qint64 mem_available() {
 
 
 QMap<QString, QPixmap> Image::s_preview_cache;
+QDir Image::s_temp_dir;
 
 
 Image::Image(const QFileInfo& file_info) : m_file_info{file_info} {
@@ -121,10 +123,9 @@ QPixmap Image::preview() {
 
   QPixmap image;
   try {
-    if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
+    if (is_supported_raw_file_type(m_file_info))
       load_raw(image);
-    else if (supported_nonraw_file_extensions().contains(m_file_info.suffix(),
-                                                         Qt::CaseInsensitive))
+    else if (is_supported_nonraw_file_type(m_file_info))
       load_nonraw(image);
     if (m_image_orientation == ImageOrientation::rot_180)
       image = image.transformed(QTransform().rotate(180));
@@ -158,37 +159,66 @@ QPixmap Image::thumb_nail() {
 }
 
 
-QString Image::absolute_file_path() {
+QString Image::absolute_file_path() const {
   return m_file_info.absoluteFilePath();
 }
 
 
-const QStringList& Image::supported_raw_file_extensions() {
+QString Image::share(bool share_raw_as_jpeg) const {
+  if (is_supported_raw_file_type(m_file_info) and share_raw_as_jpeg) {
+    QDir out_dir{s_temp_dir};
+    out_dir.mkpath(".");
+    QString filename{out_dir.filePath(m_file_info.baseName() + ".jpg")};
+    QFile file{filename};
+    file.open(QIODevice::WriteOnly);
+    try {
+      LibRaw lib_raw;
+      if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
+          LIBRAW_SUCCESS)
+        throw ImageException("unable to open file");
+      if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
+        throw ImageException("unable to extract thumbnail image");
+      if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
+        QByteArray data(reinterpret_cast<const char*>(lib_raw.imgdata.thumbnail.thumb),
+                        lib_raw.imgdata.thumbnail.tlength);
+        file.write(data);
+      }
+    }
+    catch(...) {}
+    return filename;
+  }
+  return absolute_file_path();
+}
+
+
+bool Image::is_supported_file_type(const QFileInfo& file_info) {
+  return is_supported_raw_file_type(file_info) or is_supported_nonraw_file_type(file_info);
+}
+
+
+void Image::set_temp_dir(const QDir& temp_dir) {
+  s_temp_dir = temp_dir;
+}
+
+
+bool Image::is_supported_raw_file_type(const QFileInfo &file_info) {
   static const QStringList extensions{
       "3fr", "ari", "arw", "bay", "braw", "crw", "cr2", "cr3", "cap", "data", "dcs",
       "dcr", "dng", "drf", "eip", "erf",  "fff", "gpr", "iiq", "k25", "kdc",  "mdc",
       "mef", "mos", "mrw", "nef", "nrw",  "obm", "orf", "pef", "ptx", "pxn",  "r3d",
       "raf", "raw", "rwl", "rw2", "rwz",  "sr2", "srf", "srw", "tif", "x3f"};
-  return extensions;
+  return extensions.contains(file_info.suffix(), Qt::CaseInsensitive);
 }
 
 
-const QStringList& Image::supported_nonraw_file_extensions() {
+bool Image::is_supported_nonraw_file_type(const QFileInfo &file_info) {
   static const QStringList extensions{to_string_list(QImageReader::supportedImageFormats())};
-  return extensions;
+  return extensions.contains(file_info.suffix(), Qt::CaseInsensitive);
 }
 
 
 QPixmap Image::create_thumb_nail(const QPixmap& image) {
   return image.scaled(128, 128, Qt::KeepAspectRatioByExpanding);
-}
-
-
-
-const QStringList& Image::supported_file_extensions() {
-  static const QStringList extensions{supported_raw_file_extensions() +
-                                      supported_nonraw_file_extensions()};
-  return extensions;
 }
 
 
@@ -216,10 +246,9 @@ void Image::load_metadata() {
   if (not m_metadata_loaded) {
     m_metadata_loaded = true;
     try {
-      if (supported_raw_file_extensions().contains(m_file_info.suffix(), Qt::CaseInsensitive))
+      if (is_supported_raw_file_type(m_file_info))
         load_metadata_raw();
-      else if (supported_nonraw_file_extensions().contains(m_file_info.suffix(),
-                                                           Qt::CaseInsensitive))
+      else if (is_supported_nonraw_file_type(m_file_info))
         load_metadata_nonraw();
     } catch (...) {
     }

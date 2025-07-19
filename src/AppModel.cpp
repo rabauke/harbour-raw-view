@@ -6,6 +6,17 @@
 #include <QDir>
 
 
+namespace {
+
+  QDir get_temp_dir() {
+    QDir temp_dir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/" +
+                  QCoreApplication::applicationName()};
+    return temp_dir;
+  }
+
+}
+
+
 #ifdef SAILJAIL
 
 namespace {
@@ -23,6 +34,10 @@ namespace {
 AppModel::AppModel(QObject* parent)
     : QObject{parent},
       m_image_list_model{new ImageListModel()} {
+  QDir temp_dir{get_temp_dir()};
+  temp_dir.removeRecursively();
+  temp_dir.mkpath(".");
+  Image::set_temp_dir(temp_dir);
 #ifdef SAILJAIL
   QSettings settings(settings_path(), QSettings::NativeFormat);
 #else
@@ -67,10 +82,10 @@ AppModel::~AppModel() {
 
 void AppModel::loadImages(const QUrl &image_folder) {
   QDir dir{image_folder.toLocalFile()};
-  auto file_list{dir.entryInfoList(QDir::Files)};
+  auto file_info_list{dir.entryInfoList(QDir::Files)};
   QFileInfoList image_files;
-  for (const auto& file : file_list) {
-    if (Image::supported_file_extensions().contains(file.suffix(), Qt::CaseInsensitive))
+  for (const auto& file : file_info_list) {
+    if (Image::is_supported_file_type(file))
       image_files.append(file.absoluteFilePath());
   }
   m_image_list_model->load_image_meta_data_async(image_files);

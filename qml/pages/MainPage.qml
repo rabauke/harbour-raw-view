@@ -178,9 +178,6 @@ Page {
                             ShareAction {
                                 id: shareAction
                                 mimeType: 'image/*'
-                                resources: [
-                                    absoluteFilePath
-                                 ]
                              }
 
                             ImageItem {
@@ -241,7 +238,12 @@ Page {
                                 icon.source: 'image://theme/icon-m-share'
                                 visible: appModel.showImageInfo
                                 enabled: appModel.showImageInfo
-                                onClicked: shareAction.trigger()
+                                onClicked: {
+                                    shareAction.resources = [
+                                        appModel.imageList.get(index).share(true)
+                                    ]
+                                    shareAction.trigger()
+                                }
                             }
                             IconButton {
                                 anchors.verticalCenter: parent.verticalCenter

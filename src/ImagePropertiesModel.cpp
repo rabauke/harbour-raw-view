@@ -93,3 +93,8 @@ QPixmap ImagePropertiesModel::thumb_nail() {
 QString ImagePropertiesModel::absolute_file_path() {
   return m_image.absolute_file_path();
 }
+
+
+QString ImagePropertiesModel::share(bool share_raw_as_jpeg) {
+  return m_image.share(share_raw_as_jpeg);
+}

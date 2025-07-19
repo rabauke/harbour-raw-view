@@ -41,6 +41,8 @@ public:
   Q_PROPERTY(QPixmap thumbNail READ thumb_nail NOTIFY image_properties_changed)
   Q_PROPERTY(QString absoluteFilePath READ absolute_file_path NOTIFY image_properties_changed)
 
+  Q_INVOKABLE QString share(bool share_raw_as_jpeg);
+
   [[nodiscard]] const QFileInfo &file_info() const;
   [[nodiscard]] QString file_name() const;
   [[nodiscard]] double file_size() const;

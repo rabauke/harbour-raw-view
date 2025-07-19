@@ -51,9 +51,11 @@ public:
   QDateTime date_time_original() const;
   QPixmap preview();
   QPixmap thumb_nail();
-  QString absolute_file_path();
+  QString absolute_file_path() const;
+  QString share(bool share_raw_as_jpeg) const;
 
-  static const QStringList &supported_file_extensions();
+  static bool is_supported_file_type(const QFileInfo &file_info);
+  static void set_temp_dir(const QDir &temp_dir);
 
 private:
   void load_raw(QPixmap &image);
@@ -62,8 +64,8 @@ private:
   void load_metadata_raw();
   void load_metadata_nonraw();
 
-  static const QStringList &supported_raw_file_extensions();
-  static const QStringList &supported_nonraw_file_extensions();
+  static bool is_supported_raw_file_type(const QFileInfo &file_info);
+  static bool is_supported_nonraw_file_type(const QFileInfo &file_info);
   static QPixmap create_thumb_nail(const QPixmap &image);
 
   QFileInfo m_file_info;
@@ -83,4 +85,5 @@ private:
   QPixmap m_thumb_nail;
 
   static QMap<QString, QPixmap> s_preview_cache;
+  static QDir s_temp_dir;
 };
