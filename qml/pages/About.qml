@@ -73,7 +73,7 @@ Page {
             }
             ThirdPartyComponent {
                 componnet: 'Exiv2 C++ library'
-                version: '0.28.3'
+                version: '0.28.5'
                 license: 'GPL-2.0-only'
                 url: 'https://github.com/Exiv2/exiv2'
             }
