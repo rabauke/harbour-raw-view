@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.18)
 
-project(harbour-raw-view VERSION 0.7.0 LANGUAGES CXX)
+project(harbour-raw-view VERSION 0.8.0 LANGUAGES CXX)
 
 find_package(Qt5 COMPONENTS Core Qml Quick LinguistTools REQUIRED)
 
