@@ -3,12 +3,17 @@ import QtQuick.Layouts 1.1
 import Sailfish.Silica 1.0
 import Sailfish.Pickers 1.0
 import Sailfish.Share 1.0
+import Nemo.Notifications 1.0
 import RawViewQuick 1.0
 
 Page {
     id: mainPage
 
     allowedOrientations: Orientation.All
+
+    Notification {
+        id: notification
+    }
 
     property bool currentImageIsNotFirst: !appView.imageListEmpty && (appView.imageListCurrentIndex - 1 >= 0)
     property bool currentImageIsNotLast: !appView.imageListEmpty && (appView.imageListCurrentIndex + 1 < appView.imageListCount)
@@ -220,6 +225,7 @@ Page {
                                 }
                             }
                             IconButton {
+                                id: metadataButton
                                 anchors.top: parent.top
                                 anchors.left: parent.left
                                 anchors.topMargin: Theme.paddingLarge
@@ -231,6 +237,7 @@ Page {
                                                               'Metadata.qml'))
                             }
                             IconButton {
+                                id: shareButton
                                 anchors.top: parent.top
                                 anchors.right: parent.right
                                 anchors.topMargin: Theme.paddingLarge
@@ -243,6 +250,25 @@ Page {
                                         appModel.imageList.get(index).share(true)
                                     ]
                                     shareAction.trigger()
+                                }
+                            }
+                            IconButton {
+                                id: exportAsJpegButton
+                                anchors.top: parent.top
+                                anchors.right: shareButton.left
+                                anchors.topMargin: Theme.paddingLarge
+                                anchors.leftMargin: Theme.paddingMedium
+                                anchors.rightMargin: Theme.paddingMedium
+                                icon.source: 'image://theme/icon-m-file-document-dark'
+                                visible: appModel.showImageInfo && isRawImage
+                                enabled: appModel.showImageInfo && isRawImage
+                                onClicked: {
+                                    var path = appModel.imageList.get(index).exportAsJpeg()
+                                    if (path !== '') {
+                                        notification.previewSummary = qsTr('Image exported')
+                                        notification.previewBody = path
+                                        notification.publish()
+                                    }
                                 }
                             }
                             IconButton {

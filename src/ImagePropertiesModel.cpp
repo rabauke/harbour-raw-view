@@ -20,6 +20,11 @@ QString ImagePropertiesModel::file_name() const {
 }
 
 
+bool ImagePropertiesModel::is_raw_image() const {
+  return m_image.is_raw();
+}
+
+
 double ImagePropertiesModel::file_size() const {
   return m_image.file_size();
 }
@@ -97,4 +102,9 @@ QString ImagePropertiesModel::absolute_file_path() {
 
 QString ImagePropertiesModel::share(bool share_raw_as_jpeg) {
   return m_image.share(share_raw_as_jpeg);
+}
+
+
+QString ImagePropertiesModel::exportAsJpeg() {
+  return m_image.export_as_jpeg();
 }

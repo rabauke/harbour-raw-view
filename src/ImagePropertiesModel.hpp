@@ -25,6 +25,7 @@ public:
 #endif
 
   Q_PROPERTY(QString fileName READ file_name NOTIFY image_properties_changed)
+  Q_PROPERTY(bool isRawImage READ is_raw_image NOTIFY image_properties_changed)
   Q_PROPERTY(double fileSize READ file_size NOTIFY image_properties_changed)
   Q_PROPERTY(double imageWidth READ image_width NOTIFY image_properties_changed)
   Q_PROPERTY(double imageHeight READ image_height NOTIFY image_properties_changed)
@@ -42,9 +43,11 @@ public:
   Q_PROPERTY(QString absoluteFilePath READ absolute_file_path NOTIFY image_properties_changed)
 
   Q_INVOKABLE QString share(bool share_raw_as_jpeg);
+  Q_INVOKABLE QString exportAsJpeg();
 
   [[nodiscard]] const QFileInfo &file_info() const;
   [[nodiscard]] QString file_name() const;
+  [[nodiscard]] bool is_raw_image() const;
   [[nodiscard]] double file_size() const;
   [[nodiscard]] double image_width() const;
   [[nodiscard]] double image_height() const;

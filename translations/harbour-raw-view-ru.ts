@@ -65,6 +65,10 @@
         <source>Quick selection</source>
         <translation>Быстрый выбор</translation>
     </message>
+    <message>
+        <source>Image exported</source>
+        <translation>Изображение экспортировано</translation>
+    </message>
 </context>
 <context>
     <name>Metadata</name>

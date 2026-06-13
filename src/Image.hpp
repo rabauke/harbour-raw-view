@@ -52,7 +52,9 @@ public:
   QPixmap preview();
   QPixmap thumb_nail();
   QString absolute_file_path() const;
+  bool is_raw() const;
   QString share(bool share_raw_as_jpeg) const;
+  QString export_as_jpeg() const;
 
   static bool is_supported_file_type(const QFileInfo &file_info);
   static void set_temp_dir(const QDir &temp_dir);

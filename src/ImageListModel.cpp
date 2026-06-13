@@ -34,6 +34,8 @@ QVariant ImageListModel::data(const QModelIndex &index, int role) const {
     switch (role) {
       case file_name:
         return image->file_name();
+      case is_raw_image:
+        return image->is_raw_image();
       case file_size:
         return image->file_size();
       case image_width:
@@ -79,6 +81,7 @@ ImagePropertiesModel *ImageListModel::get(qint32 index) const {
 
 QHash<int, QByteArray> ImageListModel::roleNames() const {
   static const QHash<int, QByteArray> role_names{{file_name, "fileName"},
+                                                 {is_raw_image, "isRawImage"},
                                                  {file_size, "fileSize"},
                                                  {image_width, "imageWidth"},
                                                  {image_height, "imageHeight"},

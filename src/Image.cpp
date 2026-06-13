@@ -164,6 +164,11 @@ QString Image::absolute_file_path() const {
 }
 
 
+bool Image::is_raw() const {
+  return is_supported_raw_file_type(m_file_info);
+}
+
+
 QString Image::share(bool share_raw_as_jpeg) const {
   if (is_supported_raw_file_type(m_file_info) and share_raw_as_jpeg) {
     QDir out_dir{s_temp_dir};
@@ -175,9 +180,9 @@ QString Image::share(bool share_raw_as_jpeg) const {
       LibRaw lib_raw;
       if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
           LIBRAW_SUCCESS)
-        throw ImageException("unable to open file");
+        throw ImageException{"unable to open file"};
       if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
-        throw ImageException("unable to extract thumbnail image");
+        throw ImageException{"unable to extract thumbnail image"};
       if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
         QByteArray data(reinterpret_cast<const char*>(lib_raw.imgdata.thumbnail.thumb),
                         lib_raw.imgdata.thumbnail.tlength);
@@ -188,6 +193,47 @@ QString Image::share(bool share_raw_as_jpeg) const {
     return filename;
   }
   return absolute_file_path();
+}
+
+
+QString Image::export_as_jpeg() const {
+  if (is_supported_raw_file_type(m_file_info)) {
+    QDir out_dir{m_file_info.absoluteDir()};
+    QString base_name{m_file_info.baseName()};
+    QString extension{".jpg"};
+    QString filename{out_dir.filePath(base_name + extension)};
+    int counter{1};
+    while (QFile::exists(filename)) {
+      filename = out_dir.filePath(base_name + "-" + QString::number(counter) + extension);
+      counter++;
+    }
+
+    QFile file{filename};
+    if (not file.open(QIODevice::WriteOnly)) {
+      return {};
+    }
+
+    try {
+      LibRaw lib_raw;
+      if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
+          LIBRAW_SUCCESS)
+        throw ImageException{"unable to open file"};
+      if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
+        throw ImageException{"unable to extract thumbnail image"};
+      if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
+        QByteArray data(reinterpret_cast<const char*>(lib_raw.imgdata.thumbnail.thumb),
+                        lib_raw.imgdata.thumbnail.tlength);
+        file.write(data);
+      } else {
+        return {};
+      }
+    }
+    catch(...) {
+      return {};
+    }
+    return filename;
+  }
+  return {};
 }
 
 

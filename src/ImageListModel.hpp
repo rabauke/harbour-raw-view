@@ -42,21 +42,22 @@ private:
   void load_image_meta_data_async_impl(const QFileInfoList &file_paths);
 
   static constexpr int file_name = Qt::UserRole;
-  static constexpr int file_size = Qt::UserRole + 1;
-  static constexpr int image_width = Qt::UserRole + 2;
-  static constexpr int image_height = Qt::UserRole + 3;
-  static constexpr int camera_maker = Qt::UserRole + 4;
-  static constexpr int camera_model = Qt::UserRole + 5;
-  static constexpr int lens_maker = Qt::UserRole + 6;
-  static constexpr int lens_model = Qt::UserRole + 7;
-  static constexpr int focal_length = Qt::UserRole + 8;
-  static constexpr int aperture = Qt::UserRole + 9;
-  static constexpr int shutter_speed = Qt::UserRole + 10;
-  static constexpr int iso = Qt::UserRole + 11;
-  static constexpr int date_time_original = Qt::UserRole + 12;
-  static constexpr int preview = Qt::UserRole + 13;
-  static constexpr int thumb_nail = Qt::UserRole + 14;
-  static constexpr int absolute_file_path = Qt::UserRole + 15;
+  static constexpr int is_raw_image = Qt::UserRole + 1;
+  static constexpr int file_size = Qt::UserRole + 2;
+  static constexpr int image_width = Qt::UserRole + 3;
+  static constexpr int image_height = Qt::UserRole + 4;
+  static constexpr int camera_maker = Qt::UserRole + 5;
+  static constexpr int camera_model = Qt::UserRole + 6;
+  static constexpr int lens_maker = Qt::UserRole + 7;
+  static constexpr int lens_model = Qt::UserRole + 8;
+  static constexpr int focal_length = Qt::UserRole + 9;
+  static constexpr int aperture = Qt::UserRole + 10;
+  static constexpr int shutter_speed = Qt::UserRole + 11;
+  static constexpr int iso = Qt::UserRole + 12;
+  static constexpr int date_time_original = Qt::UserRole + 13;
+  static constexpr int preview = Qt::UserRole + 14;
+  static constexpr int thumb_nail = Qt::UserRole + 15;
+  static constexpr int absolute_file_path = Qt::UserRole + 16;
 
   mutable QList<QSharedPointer<ImagePropertiesModel>> m_images;
 };
