@@ -268,6 +268,9 @@ Page {
                                         notification.previewSummary = qsTr('Image exported')
                                         notification.previewBody = path
                                         notification.publish()
+                                    } else {
+                                        notification.previewSummary = qsTr('Unable to export image')
+                                        notification.publish()
                                     }
                                 }
                             }

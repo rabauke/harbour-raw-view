@@ -69,6 +69,10 @@
         <source>Image exported</source>
         <translation>Image exportée</translation>
     </message>
+    <message>
+        <source>Unable to export image</source>
+        <translation>Impossible d&apos;exporter l&apos;image</translation>
+    </message>
 </context>
 <context>
     <name>Metadata</name>
