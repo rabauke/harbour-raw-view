@@ -36,7 +36,7 @@ Page {
                 color: Theme.primaryColor
                 wrapMode: TextEdit.Wrap
                 font.pixelSize: Theme.fontSizeMedium
-                text: '© Heiko Bauke, 2023‒2025'
+                text: '© Heiko Bauke, 2023‒2026'
             }
             SectionHeader {
                 text: qsTr('License')
@@ -67,13 +67,13 @@ Page {
             }
             ThirdPartyComponent {
                 componnet: 'LibRaw'
-                version: '0.21.4'
+                version: '0.22.1'
                 license: 'CDDL-1.0, LGPL-2.1-only'
                 url: 'https://github.com/LibRaw/LibRaw'
             }
             ThirdPartyComponent {
                 componnet: 'Exiv2 C++ library'
-                version: '0.28.5'
+                version: '0.28.8'
                 license: 'GPL-2.0-only'
                 url: 'https://github.com/Exiv2/exiv2'
             }
