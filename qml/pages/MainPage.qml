@@ -265,6 +265,7 @@ Page {
                                 onClicked: {
                                     var path = appModel.imageList.get(index).exportAsJpeg()
                                     if (path !== '') {
+                                        appModel.imageList.addImage(path)
                                         notification.previewSummary = qsTr('Image exported')
                                         notification.previewBody = path
                                         notification.publish()

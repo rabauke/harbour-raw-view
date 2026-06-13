@@ -1,5 +1,7 @@
 #include "ImageListModel.hpp"
 #include <QCoreApplication>
+#include <algorithm>
+#include <iterator>
 
 
 static bool compare_image_properties_models(
@@ -76,6 +78,20 @@ ImagePropertiesModel *ImageListModel::get(qint32 index) const {
   if (0 <= index and index < m_images.count())
     return m_images[index].data();
   return nullptr;
+}
+
+
+void ImageListModel::addImage(const QString &file_path) {
+  QFileInfo file_info{file_path};
+  if (file_info.exists() and file_info.isFile() and file_info.isReadable()) {
+    QSharedPointer<ImagePropertiesModel> new_image{new ImagePropertiesModel{file_info}};
+    const auto it{std::upper_bound(m_images.begin(), m_images.end(), new_image,
+                                   compare_image_properties_models)};
+    const int index{static_cast<int>(std::distance(m_images.begin(), it))};
+    beginInsertRows(QModelIndex(), index, index);
+    m_images.insert(index, new_image);
+    endInsertRows();
+  }
 }
 
 

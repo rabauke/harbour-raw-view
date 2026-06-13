@@ -28,6 +28,7 @@ public:
   [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
   [[nodiscard]] QVariant data(const QModelIndex &index, int role) const override;
   Q_INVOKABLE ImagePropertiesModel *get(qint32 index) const;
+  Q_INVOKABLE void addImage(const QString &file_path);
 
   friend class ImageListLoader;
 
