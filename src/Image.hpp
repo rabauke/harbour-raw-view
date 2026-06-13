@@ -65,6 +65,7 @@ private:
   void load_metadata();
   void load_metadata_raw();
   void load_metadata_nonraw();
+  void write_exif_to_jpeg(const QString &jpeg_path) const;
 
   static bool is_supported_raw_file_type(const QFileInfo &file_info);
   static bool is_supported_nonraw_file_type(const QFileInfo &file_info);

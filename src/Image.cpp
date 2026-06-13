@@ -38,6 +38,26 @@ static qint64 mem_available() {
 }
 
 
+static bool write_raw_jpeg_thumbnail(const QString& source_path, QFile& out_file) {
+  try {
+    LibRaw lib_raw;
+    if (lib_raw.open_file(source_path.toUtf8().toStdString().c_str()) != LIBRAW_SUCCESS)
+      return false;
+    if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
+      return false;
+    if (lib_raw.imgdata.thumbnail.tformat != LIBRAW_THUMBNAIL_JPEG)
+      return false;
+    QByteArray data(reinterpret_cast<const char*>(lib_raw.imgdata.thumbnail.thumb),
+                    lib_raw.imgdata.thumbnail.tlength);
+    out_file.write(data);
+    return true;
+  }
+  catch(...) {
+    return false;
+  }
+}
+
+
 QMap<QString, QPixmap> Image::s_preview_cache;
 QDir Image::s_temp_dir;
 
@@ -176,20 +196,9 @@ QString Image::share(bool share_raw_as_jpeg) const {
     QString filename{out_dir.filePath(m_file_info.baseName() + ".jpg")};
     QFile file{filename};
     file.open(QIODevice::WriteOnly);
-    try {
-      LibRaw lib_raw;
-      if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
-          LIBRAW_SUCCESS)
-        throw ImageException{"unable to open file"};
-      if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
-        throw ImageException{"unable to extract thumbnail image"};
-      if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
-        QByteArray data(reinterpret_cast<const char*>(lib_raw.imgdata.thumbnail.thumb),
-                        lib_raw.imgdata.thumbnail.tlength);
-        file.write(data);
-      }
-    }
-    catch(...) {}
+    write_raw_jpeg_thumbnail(m_file_info.absoluteFilePath(), file);
+    file.close();
+    write_exif_to_jpeg(filename);
     return filename;
   }
   return absolute_file_path();
@@ -209,28 +218,14 @@ QString Image::export_as_jpeg() const {
     }
 
     QFile file{filename};
-    if (not file.open(QIODevice::WriteOnly)) {
+    if (not file.open(QIODevice::WriteOnly))
       return {};
-    }
 
-    try {
-      LibRaw lib_raw;
-      if (lib_raw.open_file(m_file_info.absoluteFilePath().toUtf8().toStdString().c_str()) !=
-          LIBRAW_SUCCESS)
-        throw ImageException{"unable to open file"};
-      if (lib_raw.unpack_thumb() != LIBRAW_SUCCESS)
-        throw ImageException{"unable to extract thumbnail image"};
-      if (lib_raw.imgdata.thumbnail.tformat == LIBRAW_THUMBNAIL_JPEG) {
-        QByteArray data(reinterpret_cast<const char*>(lib_raw.imgdata.thumbnail.thumb),
-                        lib_raw.imgdata.thumbnail.tlength);
-        file.write(data);
-      } else {
-        return {};
-      }
-    }
-    catch(...) {
+    if (not write_raw_jpeg_thumbnail(m_file_info.absoluteFilePath(), file))
       return {};
-    }
+
+    file.close();
+    write_exif_to_jpeg(filename);
     return filename;
   }
   return {};
@@ -332,6 +327,29 @@ void Image::load_metadata_raw() {
     default:
       m_image_orientation = ImageOrientation::original;
       break;
+  }
+}
+
+
+void Image::write_exif_to_jpeg(const QString& jpeg_path) const {
+  try {
+    auto jpeg_image{Exiv2::ImageFactory::open(jpeg_path.toLocal8Bit().data())};
+    jpeg_image->readMetadata();
+    Exiv2::ExifData& exif = jpeg_image->exifData();
+    exif["Exif.Image.Make"] = m_camera_maker.toStdString();
+    exif["Exif.Image.Model"] = m_camera_model.toStdString();
+    exif["Exif.Photo.LensMake"] = m_lens_maker.toStdString();
+    exif["Exif.Photo.LensModel"] = m_lens.toStdString();
+    exif["Exif.Photo.FocalLength"] = Exiv2::URational(static_cast<uint32_t>(m_focal_length * 1000), 1000);
+    exif["Exif.Photo.FNumber"] = Exiv2::URational(static_cast<uint32_t>(m_aperture * 1000), 1000);
+    exif["Exif.Photo.ExposureTime"] = Exiv2::URational(static_cast<uint32_t>(m_shutter_speed * 1000000), 1000000);
+    exif["Exif.Photo.ISOSpeedRatings"] = static_cast<uint16_t>(m_iso);
+    exif["Exif.Photo.DateTimeOriginal"] =
+        m_date_time_original.toString("yyyy:MM:dd hh:mm:ss").toStdString();
+    exif["Exif.Image.Orientation"] = static_cast<uint16_t>(m_image_orientation);
+    jpeg_image->setExifData(exif);
+    jpeg_image->writeMetadata();
+  } catch (...) {
   }
 }
 
